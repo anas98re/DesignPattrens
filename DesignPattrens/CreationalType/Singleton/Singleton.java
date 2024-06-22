@@ -1,4 +1,5 @@
 
+
 public class Singleton {
     
     //create an object of SingleObject
