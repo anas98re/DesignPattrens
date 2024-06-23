@@ -69,3 +69,57 @@ Suppose we want to create a House object that contains several components such a
 | + toString()   |                       |                |
 +----------------+                       +----------------+
 
+
+2 - Factory method
+
+Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
+أسلوب المصنع هو نمط تصميم إبداعي يوفر واجهة لإنشاء كائنات في فئة فائقة، ولكنه يسمح للفئات الفرعية بتغيير نوع الكائنات التي سيتم إنشاؤها.
+
+Example:
+Consider a scenario where you have an application that can create different types of documents, such as text documents and spreadsheets. You can use the Factory Method pattern to define an interface for creating a document and let subclasses decide which type of document to create.
+
+مثال:
+فكر في سيناريو حيث يكون لديك تطبيق يمكنه إنشاء أنواع مختلفة من المستندات، مثل المستندات النصية وجداول البيانات. يمكنك استخدام نمط أسلوب المصنع لتحديد واجهة لإنشاء مستند والسماح للفئات الفرعية بتحديد نوع المستند الذي سيتم إنشاؤه.
+
+        +----------------------+
+        |     Application      |  (Abstract Class)
+        +----------------------+
+        | - createDocument()   |
+        | + newDocument()      |
+        +----------------------+
+                   /\
+                   |
+    +--------------+--------------+
+    |                             |
++-----------------------+      +--------------------------+
+|  TextApplication      |      | SpreadsheetApplication   |
+| (Concrete Class)      |      | (Concrete Class)         |
++-----------------------+      +--------------------------+
+| + createDocument()    |      | + createDocument()       |
++-----------------------+      +--------------------------+
+                   /\                  /\
+                   |                    |
+                   |                    |
++--------------+----------+ +-------+----------+
+|                         | |                  |
++---------------------+ +----------------------+
+|  TextDocument       | |  SpreadsheetDocument |
+| (Concrete Class)    | | (Concrete Class)     |
++---------------------+ +----------------------+
+| + open()            | | + open()             |
+| + close()           | | + close()            |
+| + save()            | | + save()             |
++---------------------+ +----------------------+
+            /\                    /\
+            |                      |
+            +----------+-----------+
+                       |
+                   +-------------+
+                   |  Document   |
+                   | (Interface) |
+                   +-------------+
+                   | + open()    |
+                   | + close()   |
+                   | + save()    |
+                   +-------------+
+
