@@ -1,0 +1,71 @@
+1 - Builder :
+
+The Builder Design Pattern is used when you need to construct a complex object,
+which requires multiple steps and configurations. This pattern separates the 
+construction process from the final representation, allowing the same construction
+process to create different representations.
+
+
+يتم استخدام نمط تصميم المنشئ عندما تحتاج إلى إنشاء كائن معقد،
+الأمر الذي يتطلب خطوات وتكوينات متعددة. هذا النمط يفصل بين
+عملية البناء من التمثيل النهائي، مما يسمح بنفس البناء
+عملية لإنشاء تمثيلات مختلفة.
+
+
+Example 1:
+Lets assume we want to build a complex object like a car,
+which has various components such as the engine, wheels, 
+and body. We should be able to configure the car in different 
+ways (e.g., sports car, economy car).
+
+لنفترض أننا نريد بناء جسم معقد مثل السيارة،
+والتي تحتوي على مكونات مختلفة مثل المحرك، والعجلات،
+والجسم. يجب أن نكون قادرين على تكوين السيارة بشكل مختلف
+طرق (على سبيل المثال، سيارة رياضية، سيارة اقتصادية).
+
+Example 2:
+Suppose we want to create a House object that contains several components such as walls, doors, windows, roof, and garage. Each home can have different specifications for these components.
+
+افترض أننا نريد إنشاء كائن House يحتوي على عدة مكونات مثل walls, doors, windows, roof, و garage. يمكن أن يكون لكل منزل مواصفات مختلفة لهذه المكونات.
+
++-----------------+        +----------------+
+|     Director    |        |   CarBuilder   |Interface
++-----------------+        +----------------+
+| - builder       |<>------| + buildEngine()|
++-----------------+        | + buildWheels()|
+                           | + buildBody()  |
+                           | + getCar()     |
+                           +----------------+
+                                   /_\
+                                    |
+                                    |
+                                    |
+                +-------------------+-------------------+
+                |                                       |
+                |                                       |
+                |                                       |
++--------------------------+        +--------------------------+
+|     SportsCarBuilder     |        |    EconomyCarBuilder     |
++--------------------------+        +--------------------------+
+| - car: Car               |        | - car: Car               |
++--------------------------+        +--------------------------+
+| + buildEngine()          |        | + buildEngine()          |
+| + buildWheels()          |        | + buildWheels()          |
+| + buildBody()            |        | + buildBody()            |
+| + getCar()               |        | + getCar()               |
++--------------------------+        +--------------------------+
+          |                                    |
+          |                                    |
+          V                                    V 
++----------------+                       +----------------+
+|      Car 1     |                       |    car 2       |
++----------------+                       +----------------+
+| - engine       |                       |                |
+| - wheels       |                       |                |
+| - body         |                       |                |
+| + setEngine()  |                       |                |
+| + setWheels()  |                       |                |
+| + setBody()    |                       |                |
+| + toString()   |                       |                |
++----------------+                       +----------------+
+
