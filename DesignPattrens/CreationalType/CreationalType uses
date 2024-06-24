@@ -123,3 +123,56 @@ Consider a scenario where you have an application that can create different type
                    | + save()    |
                    +-------------+
 
+
+3 - Abstract Factory methods
+
+Abstract Factory is a creational design pattern, which solves the problem of creating
+ entire product families without specifying their concrete classes
+Abstract Factory هو نمط تصميم إبداعي يحل مشكلة إنشاء مجموعات منتجات كاملة
+ دون تحديد فئاتها المحددة
+
+
+ مثال:
+لنفترض أن لدينا واجهة رسومية تدعم عناصر واجهة مستخدم (UI Elements) مختلفة مثل الأزرار والنوافذ، 
+ويمكن أن تكون هذه العناصر خاصة بنظام تشغيل معين (Windows، MacOS، إلخ).
+
+          +----------------------+
+          |     GUIFactory       |<<interface>>
+          +----------------------+
+          | + createButton(): Button |
+          | + createWindow(): Window |
+          +----------------------+
+                    ^
+                    |
+    +---------------+---------------+
+    |                               |
++----------------+         +-----------------+
+| WindowsFactory |         |  MacOSFactory   |
++----------------+         +-----------------+
+| + createButton()         | + createButton() |
+| + createWindow()         | + createWindow() |
++----------------+         +-----------------+
+                    ^
+                    |
+  +-----------------+------------------+
+  |                                  |
++------------+              +-------------+
+|  Button    |<<interface>> |  Window     |<<interface>>
++------------+              +-------------+
+| + click()  |              | + open()    |
++------------+              +-------------+
+       ^                           ^
+       |                           |
++-----------------+     +------------------+
+| WindowsButton   |     | WindowsWindow    |
++-----------------+     +------------------+
+| + click()       |     | + open()         |
++-----------------+     +------------------+
+       ^                           ^
+       |                           |
++-----------------+     +------------------+
+| MacOSButton     |     | MacOSWindow      |
++-----------------+     +------------------+
+| + click()       |     | + open()         |
++-----------------+     +------------------+
+
