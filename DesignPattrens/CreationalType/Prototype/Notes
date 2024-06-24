@@ -1,0 +1,6 @@
+The Prototype pattern provides a convenient way of replicating existing objects instead of trying to reconstruct the objects by copying all of their fields directly. The direct approach not only couples you to the classes of the objects being cloned, but also doesn’t allow you to copy the contents of the private fields. The Prototype pattern lets you perform the cloning within the context of the cloned class, (where the access to the class’ private fields isn’t restricted.)
+
+يوفر نمط النموذج الأولي طريقة ملائمة لتكرار الكائنات الموجودة بدلاً من محاولة إعادة بناء الكائنات عن طريق نسخ كافة الحقول الخاصة بها مباشرة. لا يقتصر الأسلوب المباشر على ربطك بفئات الكائنات التي يتم استنساخها، ولكنه لا يسمح لك أيضًا بنسخ محتويات الحقول الخاصة. يتيح لك نمط النموذج الأولي إجراء الاستنساخ في سياق الفئة المستنسخة، حيث لا يتم تقييد الوصول إلى الحقول الخاصة للفئة.
+
+Example:
+how to clone a complex Page object using the Prototype pattern. The Page class has lots of (private fields), which will be carried over to the cloned object thanks to the Prototype pattern.
