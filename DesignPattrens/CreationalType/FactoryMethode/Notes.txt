@@ -1,0 +1,34 @@
+
+Factory Method is a creational design pattern that provides an interface for 
+creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
+أسلوب المصنع هو نمط تصميم إبداعي يوفر واجهة لإنشاء كائنات في
+فئة فائقة، ولكنه يسمح للفئات الفرعية بتغيير نوع الكائنات التي سيتم إنشاؤها.
+Great news, right? But how about the code? At present, most of your code 
+is coupled to the Truck class. Adding Ships into the app would require making 
+changes to the entire codebase. Moreover, if later you decide to add another type 
+of transportation to the app, you will probably need to make all of these changes again.
+
+As a result, you will end up with pretty nasty code, riddled with conditionals that 
+switch the app’s behavior depending on the class of transportation objects.
+
+Solution
+The Factory Method pattern suggests that you replace direct object construction 
+calls (using the new operator) with calls to a special factory method. Don’t worry: 
+the objects are still created via the new operator, but it’s being called from within 
+the factory method. Objects returned by a factory method are often referred to as products.
+أخبار عظيمة، أليس كذلك؟ ولكن ماذا عن الكود؟ في الوقت الحاضر،
+تقترن معظم التعليمات البرمجية الخاصة بك بفئة Truck. 
+قد تتطلب إضافة السفن إلى التطبيق إجراء
+تغييرات على قاعدة التعليمات البرمجية بأكملها. علاوة على ذلك،
+إذا قررت لاحقًا إضافة نوع آخر من وسائل النقل إلى التطبيق، فمن
+المحتمل أن تحتاج إلى إجراء كل هذه التغييرات مرة أخرى.
+
+ونتيجة لذلك، سينتهي بك الأمر مع تعليمات برمجية سيئة جدًا،
+مليئة بالشروط الشرطية التي تغير سلوك التطبيق اعتمادًا على فئة كائنات النقل.
+
+حل
+يقترح نمط أسلوب المصنع استبدال 
+استدعاءات إنشاء الكائنات المباشرة (باستخدام عامل التشغيل الجديد)
+باستدعاءات أسلوب مصنع خاص. لا تقلق: لا يزال يتم إنشاء الكائنات عبر
+العامل الجديد، ولكن يتم استدعاؤها من داخل طريقة المصنع. غالبًا ما
+يُشار إلى الكائنات التي يتم إرجاعها بطريقة المصنع على أنها منتجات.

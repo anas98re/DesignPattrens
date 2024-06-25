@@ -1,0 +1,24 @@
+Adapter :
+Adapter is a structural design pattern that allows objects 
+with incompatible interfaces to collaborate.
+المحول هو نمط تصميم هيكلي يسمح للكائنات ذات الواجهات غير المتوافقة بالتعاون.
+
+An adapter wraps one of the objects to hide the complexity of conversion happening 
+behind the scenes.
+يقوم المحول بتغليف أحد الكائنات لإخفاء
+تعقيد التحويل الذي يحدث خلف الكواليس. الكائن الملتف ليس على علم بالمحول.
+For example, you can wrap an object that operates in meters and kilometers with an 
+adapter that converts all of the data to imperial units such as feet and miles.
+على سبيل المثال، يمكنك تغليف كائن يعمل بالمتر والكيلومترات
+باستخدام محول يحول كافة البيانات إلى وحدات إمبراطورية مثل القدم والأميال.
+
+also:
+Adapter is a structural design pattern, which allows (incompatible) objects to collaborate.
+
+The Adapter acts as a wrapper between two objects. It catches calls for one object and transforms them to format and interface recognizable by the second object.
+المحول هو نمط تصميم هيكلي يسمح للكائنات غير المتوافقة بالتعاون.
+
+يعمل المحول بمثابة غلاف بين كائنين. فهو يلتقط المكالمات لكائن واحد ويحولها إلى تنسيق وواجهة يمكن التعرف عليها بواسطة الكائن الثاني.
+
+This implementation uses the object composition principle: the adapter implements the interface of one object and wraps the other one.
+يستخدم هذا التنفيذ مبدأ تكوين الكائن: يقوم المحول بتنفيذ واجهة أحد الكائنات ولف الكائن الآخر.
