@@ -1,0 +1,97 @@
+Facade is a structural design pattern that provides a simplified interface to a library, 
+a framework, or any other complex set of classes.
+الواجهة هي نمط تصميم هيكلي يوفر واجهة 
+مبسطة لمكتبة أو إطار عمل أو أي مجموعة معقدة أخرى من الفئات.
+
+Important :
+على حسب فهمي، واجهة الفساد هي عبارة عن خطوات من تسلسل عم اوبجكتات تعمل بالخلفية،
+لتسهل على المستخدم التعامل بشكل معقد معها.
+
+تبسيط الواجهة:
+
+يعمل Facade كوسيط بين العميل (المستخدم) والأنظمة الفرعية المعقدة.
+يوفر مجموعة من الدوال البسيطة والمباشرة التي تُخفي التفاصيل الداخلية المعقدة.
+تقليل التعقيد:
+
+يساعد Facade في تقليل عدد التبعيات بين العميل والأنظمة الفرعية.
+يعزل العميل عن التفاصيل التنفيذية الداخلية، 
+مما يسهل عليه استخدام النظام دون الحاجة إلى فهم التفاصيل الداخلية.
+توفير واجهة موحدة:
+
+يجمع Facade العديد من العمليات أو الخدمات المعقدة في واجهة واحدة.
+يمكن للعميل تنفيذ مهام معقدة عبر استدعاء دالة واحدة أو بضعة 
+دوال بسيطة بدلاً من التعامل مع العديد من الكائنات والدوال المختلفة.
+
+Important:
+يعد وجود واجهة مفيدًا عندما تحتاج إلى دمج تطبيقك مع مكتبة متطورة تحتوي
+ على العشرات من الميزات، ولكنك تحتاج فقط إلى القليل من وظائفها.
+
+Problem
+Imagine that you must make your code work with a broad set of objects that belong to a 
+sophisticated library or framework. Ordinarily, you’d need to initialize all of those 
+objects, keep track of dependencies, execute methods in the correct order, and so on.
+
+As a result, the business logic of your classes would become tightly coupled to the 
+implementation details of 3rd-party classes, making it hard to comprehend and maintain.
+مشكلة
+تخيل أنه يجب عليك جعل التعليمات البرمجية الخاصة بك تعمل مع مجموعة 
+واسعة من الكائنات التي تنتمي إلى مكتبة أو إطار عمل متطور. عادةً، ستحتاج 
+إلى تهيئة كل هذه الكائنات، وتتبع التبعيات، وتنفيذ الأساليب بالترتيب الصحيح، وما إلى ذلك.
+
+ونتيجة لذلك، سيصبح منطق الأعمال الخاص بفصولك مقترنًا بشكل وثيق 
+بتفاصيل التنفيذ الخاصة بفئات الطرف الثالث، مما يجعل من الصعب فهمه وصيانته.
+
+Solution
+A facade is a class that provides a simple interface to a complex subsystem which
+ contains lots of moving parts. A facade might provide limited functionality in
+  comparison to working with the subsystem directly. However, it includes only 
+  those features that clients really care about.
+
+Having a facade is handy when you need to integrate your app with a sophisticated 
+library that has dozens of features, but you just need a tiny bit of its functionality.
+
+For instance, an app that uploads short funny videos with cats to social media could 
+potentially use a professional video conversion library. However, all that it really 
+needs is a class with the single method encode(filename, format). After creating such a 
+class and connecting it with the video conversion library, you’ll have your first facade.
+
+حل
+الواجهة عبارة عن فئة توفر واجهة بسيطة لنظام فرعي معقد يحتوي على الكثير من الأجزاء المتحركة. قد توفر 
+الواجهة وظائف محدودة 
+مقارنة بالعمل مع النظام الفرعي مباشرةً. ومع ذلك، فهو يتضمن فقط تلك الميزات التي يهتم بها العملاء حقًا.
+
+يعد وجود واجهة مفيدًا عندما تحتاج إلى دمج تطبيقك مع مكتبة 
+متطورة تحتوي على العشرات من الميزات، ولكنك تحتاج فقط إلى القليل من وظائفها.
+
+على سبيل المثال، يمكن للتطبيق 
+الذي يقوم بتحميل مقاطع فيديو قصيرة مضحكة مع القطط على وسائل التواصل 
+الاجتماعي أن يستخدم مكتبة تحويل فيديو احترافية. ومع ذلك، كل ما يحتاجه 
+حقًا هو فئة ذات طريقة واحدة للتشفير (اسم الملف، التنسيق). بعد إنشاء 
+مثل هذه الفئة وربطها بمكتبة تحويل الفيديو، سيكون لديك واجهتك الأولى.
+
+Ex: to drow
+When you call a shop to place a phone order, an operator is your facade to all 
+services and departments of the shop. The operator provides you with a simple voice 
+interface to the ordering system, payment gateways, and various delivery services.
+
+
++-------------------------------------+
+|            VideoConversionFacade    |
+|-------------------------------------|
+| + convertVideo(fileName, format)    |<-----asks---------- Application
+|-------------------------------------|
+|                                     |
+|    1. Create VideoFile              |
+|    2. Extract Codec using CodecFactory  |
+|    3. Read file using BitrateReader |
+|    4. Convert file using BitrateReader|
+|    5. Fix audio using AudioMixer    |
++-------------------------------------+
+             |      |         |        |
+             v      v         v        v
++------------+  +------------+  +------------+  +------------+
+| VideoFile  |  | CodecFactory |  | BitrateReader |  | AudioMixer   |
++------------+  +------------+  +------------+  +------------+
+| + getName() |  | + extract() |  | + read()      |  | + fix()      |
+| + getFormat()|  |            |  | + convert()   |  |              |
++------------+  +------------+  +------------+  +------------+
