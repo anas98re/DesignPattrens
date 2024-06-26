@@ -1,0 +1,95 @@
+Important steps:
+- add interface to declare of operations that we want execute.
+- add single classes to implementation of operations
+- add Composite class to implementation of operations and adding method to executes operations 
+declared in Employee and distributes them to child objects. (Overrides operation
+to we walk in forEach on employees
+as example and sum salaries)
+
+
+Composite is a structural design pattern that lets you compose objects into tree structures 
+and then work with these structures as if they were individual objects.
+المركب هو نمط تصميم هيكلي 
+يتيح لك تركيب الكائنات في هياكل شجرة ثم العمل مع هذه الهياكل كما لو كانت كائنات فردية.
+
+Problem
+Using the Composite pattern makes sense only when the core model of your app can be 
+represented as a tree.
+
+For example, imagine that you have two types of objects: Products and Boxes. 
+A Box can contain several Products as well as a number of smaller Boxes. 
+These little Boxes can also hold some Products or even smaller Boxes, and so on.
+
+Say you decide to create an ordering system that uses these classes. Orders 
+could contain simple products without any wrapping, as well as boxes stuffed 
+with products...and other boxes. How would you determine the total price of such an order?
+مشكلة
+يعد استخدام النمط المركب أمرًا منطقيًا فقط عندما يمكن تمثيل النموذج الأساسي لتطبيقك كشجرة.
+
+على سبيل المثال، تخيل أن لديك نوعين من الكائنات: المنتجات والصناديق. يمكن أن يحتوي 
+الصندوق على العديد من المنتجات بالإضافة إلى عدد من الصناديق الصغيرة. يمكن لهذه 
+الصناديق الصغيرة أيضًا أن تحتوي على بعض المنتجات أو حتى صناديق أصغر، وما إلى ذلك.
+
+لنفترض أنك قررت إنشاء نظام ترتيب يستخدم هذه الفئات. يمكن 
+أن تحتوي الطلبيات على منتجات بسيطة دون أي تغليف، وكذلك الصناديق المحشوة 
+بالمنتجات...وصناديق أخرى. كيف يمكنك تحديد السعر الإجمالي لمثل هذا الأمر؟
+
+You could try the direct approach: unwrap all the boxes, go over all the products
+ and then calculate the total. That would be doable in the real world; but in a 
+ program, it’s not as simple as running a loop. You have to know the classes of 
+ Products and Boxes you’re going through, the nesting level of the boxes and other 
+ nasty details beforehand. All of this makes the direct approach either too awkward 
+ or even impossible.
+يمكنك تجربة الطريقة المباشرة: قم بفك جميع الصناديق، وقم بمراجعة جميع 
+المنتجات ثم قم بحساب الإجمالي. سيكون ذلك ممكنًا في العالم الحقيقي؛ لكن في 
+البرنامج، الأمر ليس بهذه البساطة مثل تشغيل حلقة. عليك أن 
+تعرف فئات المنتجات والصناديق التي تمر بها، ومستوى تداخل الصناديق والتفاصيل السيئة 
+الأخرى مسبقًا. كل هذا يجعل النهج المباشر إما محرجًا للغاية أو حتى مستحيلًا.
+
+Solution
+The Composite pattern suggests that you work with Products and Boxes through 
+a common interface which declares a method for calculating the total price.
+
+How would this method work? For a product, it’d simply return the product’s price. 
+For a box, it’d go over each item the box contains, ask its price and then return a 
+total for this box. If one of these items were a smaller box, that box would also 
+start going over its contents and so on, until the prices of all inner components 
+were calculated. A box could even add some extra cost to the final price, such as 
+packaging cost.
+حل
+يقترح النمط المركب أنك تعمل مع المنتجات 
+والصناديق من خلال واجهة مشتركة تعلن عن طريقة لحساب السعر الإجمالي.
+
+كيف ستعمل هذه الطريقة؟ بالنسبة للمنتج، فإنه ببساطة يعيد سعر المنتج. 
+بالنسبة للصندوق، سيتم مراجعة كل عنصر يحتوي عليه الصندوق، والسؤال عن 
+سعره ثم إرجاع إجمالي هذا الصندوق. إذا كان أحد هذه العناصر 
+عبارة عن صندوق أصغر، فسيبدأ هذا الصندوق أيضًا في مراجعة محتوياته وهكذا، حتى يتم 
+حساب أسعار جميع المكونات الداخلية. 
+يمكن أن يضيف الصندوق بعض التكلفة الإضافية إلى السعر النهائي، مثل تكلفة التغليف.
+
+-
+The greatest benefit of this approach is that you don’t need to care about the concrete 
+classes of objects that compose the tree. You don’t need to know whether an object is a 
+simple product or a sophisticated box. You can treat them all the same via the common 
+interface. When you call a method, the objects themselves pass the request down the tree.
+الفائدة الكبرى من هذا النهج هي أنك لا تحتاج إلى الاهتمام بالفئات الملموسة 
+من الكائنات التي تشكل الشجرة. لا تحتاج إلى معرفة ما إذا كان المنتج 
+منتجًا بسيطًا أم صندوقًا متطورًا. يمكنك معاملتهم جميعًا بنفس الطريقة عبر الواجهة المشتركة. 
+عند استدعاء أسلوب ما، تقوم الكائنات نفسها بتمرير الطلب إلى أسفل الشجرة.
+
+Ex 1 :
+Armies of most countries are structured as hierarchies. An army consists of several 
+divisions; a division is a set of brigades, and a brigade consists of platoons, which 
+can be broken down into squads. Finally, a squad is a small group of real soldiers. Orders 
+are given at the top of the hierarchy and passed down onto each level until every soldier 
+knows what needs to be done.
+يتم تنظيم جيوش معظم البلدان على شكل تسلسل هرمي. يتكون 
+الجيش من عدة فرق؛ الفرقة عبارة عن مجموعة من الألوية، ويتكون 
+اللواء من فصائل يمكن تقسيمها إلى فرق. وأخيرا، الفرقة هي مجموعة صغيرة 
+من الجنود الحقيقيين. يتم إعطاء الأوامر في أعلى التسلسل 
+الهرمي ويتم تمريرها إلى كل مستوى حتى يعرف كل جندي ما يجب القيام به.
+
+
+
+
+
