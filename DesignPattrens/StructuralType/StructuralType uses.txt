@@ -22,13 +22,17 @@ adapter that converts all of the data to imperial units such as feet and miles.
 also:
 Adapter is a structural design pattern, which allows (incompatible) objects to collaborate.
 
-The Adapter acts as a wrapper between two objects. It catches calls for one object and transforms them to format and interface recognizable by the second object.
+The Adapter acts as a wrapper between two objects. It catches calls for one object and 
+transforms them to format and interface recognizable by the second object.
 المحول هو نمط تصميم هيكلي يسمح للكائنات غير المتوافقة بالتعاون.
 
-يعمل المحول بمثابة غلاف بين كائنين. فهو يلتقط المكالمات لكائن واحد ويحولها إلى تنسيق وواجهة يمكن التعرف عليها بواسطة الكائن الثاني.
+يعمل المحول بمثابة غلاف بين كائنين. فهو يلتقط 
+المكالمات لكائن واحد ويحولها إلى تنسيق وواجهة يمكن التعرف عليها بواسطة الكائن الثاني.
 
-This implementation uses the object composition principle: the adapter implements the interface of one object and wraps the other one.
-يستخدم هذا التنفيذ مبدأ تكوين الكائن: يقوم المحول بتنفيذ واجهة أحد الكائنات وتغليف الكائن الآخر.
+This implementation uses the object composition principle: the adapter implements the 
+interface of one object and wraps the other one.
+يستخدم هذا التنفيذ 
+مبدأ تكوين الكائن: يقوم المحول بتنفيذ واجهة أحد الكائنات وتغليف الكائن الآخر.
 
 
 
@@ -78,7 +82,12 @@ This implementation uses the object composition principle: the adapter implement
 
 
 Bridge:
-تصميم Bridge هو أحد الأنماط الهيكلية (Structural Design Patterns) والذي يُستخدم لفصل واجهة الكلاس عن التنفيذ الخاص بها بحيث يمكن لكلاهما أن يتغيرا بشكل مستقل. الهدف من هذا النمط هو معالجة التعقيد وتجنب التكرار عند وجود فئات متداخلة ومتعددة المستويات.
+تصميم Bridge هو أحد الأنماط الهيكلية (Structural Design Patterns) والذي يُستخدم لفصل واجهة 
+الكلاس عن التنفيذ الخاص 
+بها بحيث يمكن لكلاهما 
+أن يتغيرا بشكل مستقل. الهدف من هذا النمط هو معالجة 
+التعقيد وتجنب التكرار عند وجود فئات متداخلة ومتعددة 
+المستويات.
 
 متى يتم استخدامه؟
 
@@ -92,12 +101,18 @@ Implementor (المنفذ): واجهة تحدد عمليات بسيطة وليس
 Concrete Implementor (المنفذ الملموس): ينفذ واجهة Implementor.
 
 مثال
-تخيل أنك تبني نظامًا للرسم يمكنه رسم الأشكال باستخدام عدة واجهات رسومية (مثل OpenGL وDirectX). يمكنك استخدام تصميم Bridge للفصل بين واجهة الأشكال وطريقة رسمها.
+تخيل أنك تبني نظامًا للرسم 
+يمكنه رسم 
+الأشكال باستخدام عدة واجهات رسومية (مثل OpenGL وDirectX). يمكنك استخدام تصميم 
+Bridge للفصل بين واجهة الأشكال وطريقة 
+رسمها.
 
 
 Decorator:
 
-نمط Decorator هو أحد أنماط التصميم الهيكلية (Structural Design Patterns) الذي يسمح لك بإضافة سلوكيات أو وظائف جديدة للكائنات بشكل ديناميكي دون تغيير الشيفرة الأصلية للكائنات. يعتمد هذا النمط على تغليف الكائنات في "غلافات" (Wrappers) تضيف السلوكيات الجديدة..
+نمط Decorator هو أحد أنماط التصميم الهيكلية (Structural Design Patterns) الذي يسمح لك بإضافة سلوكيات 
+أو وظائف جديدة للكائنات بشكل ديناميكي دون تغيير الشيفرة 
+الأصلية للكائنات. يعتمد هذا النمط على تغليف الكائنات في "غلافات" (Wrappers) تضيف السلوكيات الجديدة..
 
 متى نستخدم نمط Decorator:
 عندما نريد إضافة وظائف أو سلوكيات جديدة لكائنات في النظام دون تعديل الشيفرة الأصلية.
@@ -105,8 +120,18 @@ Decorator:
 عندما نحتاج إلى إضافة وظائف بشكل ديناميكي أثناء تشغيل البرنامج.
 
 مثال على نمط Decorator:
-لنفترض أن لدينا كائن Coffee نريد إضافة مكونات إضافية له (مثل الحليب، السكر، الشوكولاتة، إلخ) دون تعديل الشيفرة الأصلية لفئة Coffee.
+لنفترض أن لدينا كائن Coffee نريد إضافة مكونات إضافية له (مثل الحليب، السكر، الشوكولاتة، إلخ) دون 
+تعديل الشيفرة الأصلية لفئة Coffee.
 
 Expample Expline:
-Wearing clothes is an example of using decorators. When you’re cold, you wrap yourself in a sweater. If you’re still cold with a sweater, you can wear a jacket on top. If it’s raining, you can put on a raincoat. All of these garments “extend” your basic behavior but aren’t part of you, and you can easily take off any piece of clothing whenever you don’t need it.
-يعد ارتداء الملابس مثالاً على استخدام مصممي الديكور. عندما تشعر بالبرد، تلف نفسك بسترة. إذا كنت لا تزال تشعر بالبرد وأنت ترتدي سترة، يمكنك ارتداء سترة فوقها. إذا كانت السماء تمطر، يمكنك ارتداء معطف واق من المطر. كل هذه الملابس تعمل على "توسيع" سلوكك الأساسي ولكنها ليست جزءًا منك، ويمكنك بسهولة خلع أي قطعة من الملابس عندما لا تحتاج إليها.
+Wearing clothes is an example of using decorators. When you’re cold, you wrap yourself in a 
+sweater. If you’re still cold with a sweater, you can wear a jacket on top. If it’s raining, you can put on a raincoat. 
+All of these garments “extend” your basic behavior but aren’t part of you, and you can easily take off any piece of 
+clothing whenever you don’t need it.
+يعد ارتداء الملابس مثالاً على استخدام مصممي الديكور. 
+عندما تشعر بالبرد، تلف نفسك بسترة. إذا كنت لا تزال تشعر بالبرد 
+وأنت ترتدي سترة، يمكنك ارتداء سترة فوقها. إذا كانت السماء 
+تمطر، يمكنك ارتداء معطف واق من المطر. كل هذه الملابس تعمل على "توسيع" سلوكك الأساسي ولكنها ليست جزءًا 
+منك، ويمكنك بسهولة خلع أي قطعة من الملابس عندما 
+لا تحتاج 
+إليها.
