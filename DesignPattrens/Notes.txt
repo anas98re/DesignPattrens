@@ -1,0 +1,126 @@
+Selecting the right design pattern depends on the problem you're trying to 
+solve and the scenario you face in software development. These patterns are 
+categorized into three main types: Creational, Structural, and Behavioral. 
+Here's an explanation of each type and when to use them:
+
+1. Creational Patterns
+Creational patterns focus on the mechanisms of creating objects in a manner 
+suitable for the situation you're dealing with. The main goal is to create 
+objects in a way that is suitable for the intended use, flexible, and easy to modify.
+
+When to use Creational Patterns?
+When you need to control the creation process of objects.
+When you want to avoid direct and complex object instantiation.
+When you need to reuse existing objects instead of creating new ones.
+Examples:
+- Singleton: To ensure there is only one instance of a class.
+- Factory Method: To provide an interface for creating objects in subclasses.
+- Abstract Factory: To create families of related objects without specifying their 
+concrete classes.
+- Builder: To separate the construction of a complex object from its representation.
+- Prototype: To create new objects by copying existing ones (cloning).
+2. Structural Patterns
+Structural patterns focus on how objects are composed to form larger and more complex 
+structures. These patterns help ensure that the structures are easy to assemble and maintain.
+
+When to use Structural Patterns?
+When you need to build flexible and complex object structures.
+When you want to provide a simplified interface to a complex system.
+When you need to organize relationships between objects.
+Examples:
+-Adapter: To provide a different interface for an existing object.
+-Bridge: To separate an abstraction from its implementation so that both can be developed independently.
+-Composite: To compose objects into tree structures to represent part-whole hierarchies.
+-Decorator: To add new functionality to an existing object without altering its structure.
+-Facade: To provide a simplified interface to a complex subsystem.
+-Flyweight: To minimize memory usage by sharing as much data as possible with similar objects.
+-Proxy: To provide a surrogate or placeholder for another object to control access to it.
+3. Behavioral Patterns
+Behavioral patterns focus on how objects interact and communicate with each other. 
+These patterns help define the communication patterns between objects.
+
+When to use Behavioral Patterns?
+When you need to define how objects communicate with each other.
+When you want to change the behavior of a system without changing its structure.
+When you need to organize the flow of control among objects.
+Examples:
+-Chain of Responsibility: To pass requests along a chain of handlers.
+-Command: To encapsulate a request as an object.
+-Interpreter: To interpret sentences in a language.
+-Iterator: To provide a way to access the elements of a collection sequentially.
+-Mediator: To reduce the complexity of communication between multiple objects.
+-Memento: To capture and restore an object's internal state.
+-Observer: To define a one-to-many dependency between objects.
+-State: To allow an object to change its behavior when its internal state changes.
+-Strategy: To define a family of algorithms and make them interchangeable.
+-Template Method: To define the skeleton of an algorithm and let subclasses redefine certain steps.
+-Visitor: To separate operations from the objects on which they operate.
+Conclusion
+Choosing the right design pattern depends on the scenario and the problem you're trying 
+to solve. The developer should start by understanding the problem thoroughly and identifying 
+its type (Creational, Structural, Behavioral), and then select the most appropriate pattern 
+that provides a solution. Each pattern has specific scenarios where it is best used to achieve 
+efficient, flexible, and maintainable design.
+
+اختيار نماذج التصميم (Design Patterns) يعتمد على المشكلة التي تحاول حلها والسيناريو 
+الذي تواجهه في تطوير البرمجيات. هذه 
+النماذج تنقسم إلى ثلاثة أنواع رئيسية: Creational (إنشائية)، Structural (هيكلية)، و Behavioral (سلوكية).
+ هنا شرح لكل نوع مع توضيح متى يجب استخدام كل نوع:
+
+1. Creational Patterns (الأنماط الإنشائية)
+تركز الأنماط الإنشائية على آلية إنشاء
+ الكائنات بطريقة مناسبة للحالة التي تواجهها. الأهم هو كيفية إنشاء
+ الكائنات بحيث تكون مناسبة للاستخدام المطلوب، مرنة وسهلة التعديل.
+
+متى نستخدم الأنماط الإنشائية؟
+عندما تحتاج إلى التحكم في كيفية إنشاء الكائنات.
+عندما تريد تجنب إنشاء كائنات بطريقة مباشرة معقدة.
+عندما تحتاج إلى إعادة استخدام كائنات موجودة بدلاً من إنشاء كائنات جديدة.
+أمثلة:
+Singleton: لضمان وجود كائن واحد فقط من صنف معين.
+Factory Method: لتوفير واجهة لإنشاء الكائنات في الأصناف الفرعية.
+Abstract Factory: لإنشاء عائلات من الكائنات المتعلقة دون تحديد صنفها الحقيقي.
+Builder: لفصل عملية إنشاء الكائن المعقد إلى خطوات بسيطة.
+Prototype: لإنشاء كائنات جديدة عن طريق نسخ كائنات موجودة (التكاثر).
+2. Structural Patterns (الأنماط الهيكلية)
+تركز الأنماط الهيكلية على كيفية تركيب الكائنات معاً لتشكيل بنى أكبر وأكثر
+ تعقيداً. تساعد هذه الأنماط في تأمين الكائنات بطريقة سهلة التركيب والصيانة.
+
+متى نستخدم الأنماط الهيكلية؟
+عندما تحتاج إلى بناء بنى مرنة ومعقدة من الكائنات.
+عندما تريد توفير واجهة مبسطة لنظام معقد.
+عندما تحتاج إلى تنظيم العلاقات بين الكائنات.
+أمثلة:
+Adapter: لتوفير واجهة مختلفة لكائن موجود.
+Bridge: لفصل التجريد عن التنفيذ بحيث يمكن تطوير كل منهما بشكل مستقل.
+Composite: لتكوين كائنات في بنى شجرية لتمثيل تسلسل هرمي "الجزء-الكل".
+Decorator: لإضافة وظائف جديدة لكائن موجود دون تغيير هيكله.
+Facade: لتوفير واجهة مبسطة لمجموعة معقدة من الكائنات.
+Flyweight: لتقليل استخدام الذاكرة عن طريق مشاركة الكائنات المتشابهة.
+Proxy: لتوفير بديل أو وسيط لكائن آخر للتحكم في الوصول إليه.
+3. Behavioral Patterns (الأنماط السلوكية)
+تركز الأنماط السلوكية على كيفية تفاعل الكائنات مع بعضها البعض والتواصل
+ فيما بينها. تساعد هذه الأنماط في تحديد الأنماط المشتركة للتفاعل بين الكائنات.
+
+متى نستخدم الأنماط السلوكية؟
+عندما تحتاج إلى تحديد كيفية تواصل الكائنات مع بعضها البعض.
+عندما تريد تغيير سلوك النظام دون تغيير هياكله.
+عندما تحتاج إلى تنظيم عمليات تدفق التحكم بين الكائنات.
+أمثلة:
+Chain of Responsibility: لتمرير الطلبات عبر سلسلة من المعالجات.
+Command: لتحويل الطلبات إلى كائنات مستقلة تحتوي على كل المعلومات اللازمة لتنفيذها.
+Interpreter: لتفسير الجمل في لغة معينة.
+Iterator: لتوفير طريقة للوصول إلى عناصر مجموعة بدون الكشف عن التمثيل الأساسي.
+Mediator: لتقليل التعقيد بالتفاعل المباشر بين الكائنات عبر كائن وسيط.
+Memento: لحفظ واستعادة حالة الكائن.
+Observer: لتعريف علاقة واحد إلى كثير بين
+ الكائنات بحيث عندما يغير كائن حالته يتم إعلام جميع الكائنات المرتبطة.
+State: للسماح لكائن بتغيير سلوكه عندما تتغير حالته الداخلية.
+Strategy: لتعريف عائلة من الخوارزميات وجعلها قابلة للتبادل.
+Template Method: لتحديد الهيكل العظمي لخوارزمية وتأجيل بعض الخطوات إلى الأصناف الفرعية.
+Visitor: لفصل الخوارزميات عن الكائنات التي تعمل عليها.
+الخلاصة
+اختيار نموذج التصميم يعتمد على السيناريو والمشكلة التي تحاول
+ حلها. يبدأ المطور بفهم المشكلة بدقة وتحديد نوعها (إنشائية، هيكلية، سلوكية)
+ ثم يختار النموذج الأنسب الذي يوفر حلاً لهذه المشكلة. كل نموذج له سيناريوهات
+ معينة حيث يكون الأفضل استخدامه لتحقيق التصميم الأكثر كفاءة ومرونة وقابلية للصيانة.

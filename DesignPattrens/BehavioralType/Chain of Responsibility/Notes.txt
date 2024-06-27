@@ -1,0 +1,176 @@
+Chain of Responsibility is a behavioral design pattern that lets you pass requests along a 
+chain of handlers. Upon receiving a request, each handler decides either to process the 
+request or to pass it to the next handler in the chain.
+سلسلة المسؤولية هي نمط تصميم سلوكي يتيح لك تمرير الطلبات عبر سلسلة 
+من المعالجات. عند تلقي الطلب، يقرر 
+كل معالج إما معالجة الطلب أو تمريره إلى المعالج التالي في السلسلة.
+
+Problem
+Imagine that you’re working on an online ordering system. You want to restrict 
+access to the system so only authenticated users can create orders. Also, users 
+who have administrative permissions must have full access to all orders.
+
+After a bit of planning, you realized that these checks must be performed sequentially. 
+The application can attempt to authenticate a user to the system whenever it receives a 
+request that contains the user’s credentials. However, if those credentials aren’t correct 
+and authentication fails, there’s no reason to proceed with any other checks.
+مشكلة
+تخيل أنك تعمل على نظام الطلب عبر الإنترنت. تريد تقييد الوصول إلى النظام
+ حتى يتمكن المستخدمون المصادقون فقط من إنشاء الطلبات. بالإضافة إلى ذلك، يجب أن يتمتع
+  المستخدمون الذين لديهم أذونات إدارية بحق الوصول الكامل إلى كافة الطلبات.
+
+وبعد قليل من التخطيط، أدركت أنه 
+يجب إجراء هذه الفحوصات بشكل تسلسلي. يمكن أن يحاول التطبيق مصادقة مستخدم للنظام
+ عندما يتلقى طلبًا يحتوي على بيانات اعتماد المستخدم. ومع ذلك، إذا لم تكن بيانات
+ الاعتماد هذه صحيحة وفشلت المصادقة، فليس هناك سبب لمتابعة أي عمليات تحقق أخرى.
+
+During the next few months, you implemented several more of those sequential checks.
+
+One of your colleagues suggested that it’s unsafe to pass raw data straight to the ordering system. 
+So you added an extra validation step to sanitize the data in a request.
+
+Later, somebody noticed that the system is vulnerable to brute force password cracking. To negate 
+this, you promptly added a check that filters repeated failed requests coming from the same IP address.
+
+Someone else suggested that you could speed up the system by returning cached results on repeated 
+requests containing the same data. Hence, you added another check which lets the request pass 
+through to the system only if there’s no suitable cached response. 
+خلال الأشهر القليلة التالية، قمت بتنفيذ العديد من عمليات التحقق التسلسلية هذه.
+
+اقترح أحد زملائك أنه من غير الآمن تمرير البيانات الأولية مباشرة إلى 
+نظام الطلب. لذا قمت بإضافة خطوة تحقق إضافية لتطهير البيانات في الطلب.
+
+وفي وقت لاحق، لاحظ أحدهم أن النظام عرضة لاختراق كلمة المرور بالقوة الغاشمة. ولإلغاء ذلك، قمت على 
+الفور بإضافة فحص يقوم بتصفية الطلبات الفاشلة المتكررة الواردة من نفس عنوان IP.
+
+اقترح شخص آخر أنه يمكنك تسريع النظام من خلال إرجاع النتائج المخزنة مؤقتًا للطلبات 
+المتكررة التي تحتوي على نفس البيانات. وبالتالي، قمت بإضافة فحص آخر يسمح للطلب 
+بالمرور إلى النظام فقط في حالة عدم وجود استجابة مناسبة في ذاكرة التخزين المؤقت.
+
+
+The code of the checks, which had already looked like a mess, became more and more bloated as 
+you added each new feature. Changing one check sometimes affected the others. Worst of all,
+ when you tried to reuse the checks to protect other components of the system, you had to 
+ duplicate some of the code since those components required some of the checks, but not all of them.
+
+The system became very hard to comprehend and expensive to maintain. You struggled with the
+ code for a while, until one day you decided to refactor the whole thing.
+أصبح رمز الشيكات، الذي كان يبدو بالفعل 
+وكأنه فوضى، منتفخًا أكثر فأكثر مع إضافة كل ميزة جديدة. يؤثر تغيير أحد الشيكات أحيانًا على الشيكات 
+الأخرى. والأسوأ من ذلك كله، عندما حاولت إعادة استخدام عمليات التحقق لحماية المكونات الأخرى للنظام، 
+كان عليك تكرار بعض التعليمات البرمجية لأن تلك المكونات تتطلب بعض عمليات التحقق، ولكن ليس كلها.
+
+أصبح النظام صعب الفهم للغاية وصيانته
+ مكلفة. لقد كافحت مع الكود لفترة من الوقت، حتى قررت ذات يوم إعادة صياغة الأمر برمته.
+
+
+Solution
+Like many other behavioral design patterns, the Chain of Responsibility relies on transforming 
+particular behaviors into stand-alone objects called handlers. In our case, each check should 
+be extracted to its own class with a single method that performs the check. The request, along 
+with its data, is passed to this method as an argument.
+
+The pattern suggests that you link these handlers into a chain. Each linked handler has a field 
+for storing a reference to the next handler in the chain. In addition to processing a request, 
+handlers pass the request further along the chain. The request travels along the chain until all 
+handlers have had a chance to process it.
+
+Here’s the best part: a handler can decide not to pass the request further down the chain and 
+effectively stop any further processing.
+
+In our example with ordering systems, a handler performs the processing and then decides whether 
+to pass the request further down the chain. Assuming the request contains the right data, all the 
+handlers can execute their primary behavior, whether it’s authentication checks or caching.
+حل
+مثل العديد من أنماط التصميم السلوكي الأخرى، تعتمد سلسلة المسؤولية على تحويل سلوكيات 
+معينة إلى كائنات قائمة بذاتها تسمى المعالجات. في حالتنا، يجب استخراج كل شيك إلى فئته 
+الخاصة باستخدام طريقة واحدة تقوم بإجراء الفحص. يتم تمرير الطلب مع بياناته إلى هذه الطريقة كوسيطة.
+
+يقترح النمط أن تقوم بربط هذه المعالجات في سلسلة. يحتوي كل معالج مرتبط على حقل لتخزين مرجع إلى المعالج 
+التالي في السلسلة. بالإضافة إلى معالجة الطلب، يقوم 
+المعالجون بتمرير الطلب على طول السلسلة. ينتقل الطلب عبر السلسلة حتى تتاح الفرصة لجميع المعالجات لمعالجته.
+
+إليك أفضل ما في الأمر: يمكن للمعالج أن يقرر عدم تمرير الطلب إلى أسفل السلسلة وإيقاف أي معالجة إضافية بشكل فعال.
+
+في مثالنا الخاص بأنظمة الطلب، يقوم المعالج بإجراء المعالجة ثم يقرر ما إذا كان 
+سيتم تمرير الطلب إلى أسفل السلسلة أم لا. بافتراض أن الطلب يحتوي على البيانات 
+الصحيحة، يمكن لجميع المعالجات تنفيذ سلوكها الأساسي، سواء كان ذلك عمليات التحقق من المصادقة أو التخزين المؤقت.
+
+
+However, there’s a slightly different approach (and it’s a bit more canonical) in which, 
+upon receiving a request, a handler decides whether it can process it. If it can, it 
+doesn’t pass the request any further. So it’s either only one handler that processes the 
+request or none at all. This approach is very common when dealing with events in stacks of 
+elements within a graphical user interface.
+
+For instance, when a user clicks a button, the event propagates through the chain of GUI 
+elements that starts with the button, goes along its containers (like forms or panels), 
+and ends up with the main application window. The event is processed by the first element 
+in the chain that’s capable of handling it. This example is also noteworthy because it shows 
+that a chain can always be extracted from an object tree.
+ومع ذلك، هناك طريقة مختلفة قليلاً (وهي أكثر شيوعًا بعض الشيء) 
+حيث يقرر المعالج، عند تلقي الطلب، ما إذا كان يمكنه معالجته
+ أم لا. إذا كان ذلك ممكنًا، فلن يمرر الطلب أكثر من ذلك. لذا، إما أن يقوم معالج واحد فقط بمعالجة
+  الطلب أو لا شيء على الإطلاق. يعد هذا الأسلوب شائعًا جدًا عند التعامل مع
+  الأحداث في مجموعات من العناصر داخل واجهة المستخدم الرسومية.
+
+على سبيل المثال، عندما ينقر المستخدم على زر، 
+ينتشر الحدث عبر سلسلة عناصر واجهة المستخدم الرسومية التي تبدأ بالزر، وتمتد عبر 
+حاوياته (مثل النماذج أو اللوحات)، وتنتهي بنافذة التطبيق الرئيسية. تتم معالجة 
+الحدث بواسطة العنصر الأول في السلسلة القادر على التعامل معه. هذا المثال جدير
+ بالملاحظة أيضًا لأنه يوضح أنه يمكن دائمًا استخراج السلسلة من شجرة الكائنات.
+
+
+It’s crucial that all handler classes implement the same interface. Each concrete 
+handler should only care about the following one having the execute method. This 
+way you can compose chains at runtime, using various handlers without coupling your 
+code to their concrete classes.
+من المهم جدًا أن تطبق جميع فئات المعالجات نفس الواجهة. يجب على كل معالج 
+للخرسانة أن يهتم فقط بالمعالج التالي الذي يمتلك طريقة التنفيذ. بهذه الطريقة
+ يمكنك إنشاء سلاسل في وقت التشغيل،
+  باستخدام معالجات مختلفة دون ربط التعليمات البرمجية الخاصة بك بفئاتها المحددة.
+
+
+
+
+Example :
+You’ve just bought and installed a new piece of hardware on your computer. Since you’re a geek, 
+the computer has several operating systems installed. You try to boot all of them to see whether 
+the hardware is supported. Windows detects and enables the hardware automatically. However, your 
+beloved Linux refuses to work with the new hardware. With a small flicker of hope, you decide to 
+call the tech-support phone number written on the box.
+
+The first thing you hear is the robotic voice of the autoresponder. It suggests nine popular 
+solutions to various problems, none of which are relevant to your case. After a while, the robot 
+connects you to a live operator.
+
+Alas, the operator isn’t able to suggest anything specific either. He keeps quoting lengthy 
+excerpts from the manual, refusing to listen to your comments. After hearing the phrase “have 
+you tried turning the computer off and on again?” for the 10th time, you demand to be connected 
+to a proper engineer.
+
+Eventually, the operator passes your call to one of the engineers, who had probably longed for a 
+live human chat for hours as he sat in his lonely server room in the dark basement of some office 
+building. The engineer tells you where to download proper drivers for your new hardware and how to 
+install them on Linux. Finally, the solution! You end the call, bursting with joy.
+لقد قمت للتو بشراء وتثبيت قطعة جديدة من الأجهزة 
+على جهاز الكمبيوتر الخاص بك. نظرًا لأنك مهووس، فقد تم تثبيت العديد من أنظمة التشغيل 
+على الكمبيوتر. تحاول تشغيلها جميعًا لمعرفة ما إذا كانت الأجهزة مدعومة أم لا. يقوم 
+Windows باكتشاف الأجهزة وتمكينها تلقائيًا. ومع ذلك، يرفض 
+نظام Linux المفضل لديك العمل مع الأجهزة الجديدة. مع وميض
+ صغير من الأمل، قررت الاتصال برقم هاتف الدعم الفني المكتوب على العلبة.
+
+أول ما تسمعه هو الصوت الآلي للمجيب الآلي. فهو يقترح تسعة حلول شائعة لمشاكل مختلفة، لا علاقة 
+لأي منها بحالتك. وبعد فترة من الوقت، يقوم الروبوت بتوصيلك إلى عامل مباشر.
+
+للأسف، المشغل غير قادر على اقتراح أي شيء محدد أيضًا. يستمر في اقتباس مقتطفات طويلة من 
+الدليل، ويرفض الاستماع إلى تعليقاتك. بعد سماع عبارة "هل حاولت إيقاف تشغيل 
+الكمبيوتر وتشغيله مرة أخرى؟" للمرة العاشرة تطالب بالتواصل مع مهندس مناسب.
+
+في نهاية المطاف، يقوم عامل الهاتف بتمرير مكالمتك إلى أحد 
+المهندسين، الذي ربما كان يتوق إلى محادثة بشرية حية لساعات بينما كان يجلس 
+في غرفة الخادم المنعزلة في الطابق السفلي المظلم لبعض مباني المكاتب. يخبرك 
+المهندس بمكان تنزيل برامج التشغيل المناسبة لجهازك الجديد وكيفية تثبيتها على Linux.
+ وأخيراً الحل! تنهي المكالمة، وتغمرك السعادة.
+
+ 
