@@ -1,0 +1,137 @@
+Flyweight is a structural design pattern that lets you fit more objects 
+into the available amount of RAM by sharing common parts of state between 
+multiple objects instead of keeping all of the data in each object.
+وزن الذبابة هو نمط تصميم هيكلي يتيح لك احتواء 
+المزيد من الكائنات في المقدار المتاح من ذاكرة الوصول العشوائي 
+(RAM) من خلال مشاركة الأجزاء المشتركة من الحالة بين كائنات متعددة بدلاً من 
+الاحتفاظ بجميع البيانات في كل كائن.
+
+Problem
+To have some fun after long working hours, you decided to create a simple video
+ game: players would be moving around a map and shooting each other. You chose
+  to implement a realistic particle system and make it a distinctive feature
+   of the game. Vast quantities of bullets, missiles, and shrapnel from explosions
+    should fly all over the map and deliver a thrilling experience to the player.
+
+Upon its completion, you pushed the last commit, built the game and sent it to
+your friend for a test drive. Although the game was running flawlessly on your
+machine, your friend wasn’t able to play for long. On his computer, the game
+kept crashing after a few minutes of gameplay. After spending several hours
+digging through debug logs, you discovered that the game crashed because of
+an insufficient amount of RAM. It turned out that your friend’s rig was much
+less powerful than your own computer, and that’s why the problem emerged so 
+quickly on his machine.
+
+The actual problem was related to your particle system. Each particle, such as 
+a bullet, a missile or a piece of shrapnel was represented by a separate object 
+containing plenty of data. At some point, when the carnage on a player’s screen 
+reached its climax, newly created particles no longer fit into the remaining RAM, 
+so the program crashed. 
+
+مشكلة
+للحصول على بعض المتعة بعد ساعات العمل الطويلة، قررت إنشاء لعبة فيديو بسيطة: 
+سيتحرك اللاعبون حول الخريطة ويطلقون النار على بعضهم البعض. لقد 
+اخترت تطبيق نظام جسيمات واقعي وجعله سمة مميزة للعبة. يجب أن تتطاير كميات كبيرة من 
+الرصاص والصواريخ وشظايا الانفجارات في جميع أنحاء الخريطة وتقدم تجربة مثيرة للاعب.
+
+عند اكتمالها، قمت بتنفيذ الالتزام الأخير، وقمت ببناء اللعبة وأرسلتها إلى 
+صديقك لاختبار القيادة. على الرغم من أن اللعبة كانت تعمل بشكل لا تشوبه شائبة على 
+جهازك، إلا أن صديقك لم يتمكن من اللعب لفترة طويلة. على جهاز الكمبيوتر الخاص به، 
+استمرت اللعبة في التعطل بعد بضع دقائق من اللعب. بعد قضاء عدة ساعات في البحث في 
+سجلات التصحيح، اكتشفت أن اللعبة تعطلت بسبب عدم كفاية كمية ذاكرة الوصول العشوائي 
+(RAM). اتضح أن جهاز صديقك كان أقل قوة بكثير من 
+جهاز الكمبيوتر الخاص بك، ولهذا السبب ظهرت المشكلة بسرعة كبيرة على جهازه.
+
+كانت المشكلة الفعلية مرتبطة بنظام الجسيمات الخاص بك. تم تمثيل كل جسيم، مثل 
+الرصاصة أو الصاروخ أو قطعة الشظية، بجسم منفصل يحتوي على الكثير من البيانات. 
+في مرحلة ما، عندما وصلت المذبحة على شاشة اللاعب إلى ذروتها، لم تعد الجزيئات 
+المنشأة حديثًا تتناسب مع ذاكرة الوصول العشوائي المتبقية، لذلك تعطل البرنامج.
+
+ Solution
+On closer inspection of the Particle class, you may notice that the color and
+ sprite fields consume a lot more memory than other fields. What’s worse is 
+ that these two fields store almost identical data across all particles. For 
+ example, all bullets have the same color and sprite.
+حل
+عند الفحص الدقيق لفئة الجسيمات، قد تلاحظ أن حقول اللون والرموز 
+المتحركة تستهلك ذاكرة أكبر بكثير 
+من الحقول الأخرى. والأسوأ من ذلك هو أن هذين الحقلين يخزنان بيانات 
+
+Other parts of a particle’s state, such as coordinates, movement vector
+ and speed, are unique to each particle. After all, the values of these 
+ fields change over time. This data represents the always changing context 
+ in which the particle exists, while the color and sprite remain constant for each particle.
+
+This constant data of an object is usually called the intrinsic state. It lives 
+within the object; other objects can only read it, not change it. The rest of the 
+object’s state, often altered “from the outside” by other objects, is called the 
+extrinsic state.
+
+The Flyweight pattern suggests that you stop storing the extrinsic state inside 
+the object. Instead, you should pass this state to specific methods which rely on 
+it. Only the intrinsic state stays within the object, letting you reuse it in different 
+contexts. As a result, you’d need fewer of these objects since they only differ in the 
+intrinsic state, which has much fewer variations than the extrinsic.
+الأجزاء الأخرى من حالة الجسيم، مثل الإحداثيات ومتجه الحركة والسرعة، تكون فريدة لكل جسيم. 
+بعد كل شيء، تتغير قيم هذه الحقول مع مرور الوقت. تمثل هذه 
+البيانات السياق المتغير دائمًا الذي يوجد فيه الجسيم، بينما يظل اللون والكائن ثابتًا لكل جسيم.
+
+عادةً ما تسمى هذه البيانات الثابتة للكائن بالحالة الجوهرية. إنه 
+يعيش داخل الكائن؛ يمكن للكائنات الأخرى قراءتها فقط، وليس تغييرها. بقية حالة الجسم، 
+والتي غالبًا ما يتم تغييرها "من الخارج" بواسطة كائنات أخرى، تسمى الحالة الخارجية.
+
+يقترح نمط وزن الذبابة أن تتوقف عن تخزين الحالة الخارجية داخل الكائن. بدلاً من ذلك، 
+يجب عليك تمرير هذه الحالة إلى أساليب محددة تعتمد عليها. تبقى الحالة الجوهرية فقط 
+داخل الكائن، مما يتيح لك إعادة استخدامه في سياقات مختلفة. ونتيجة لذلك، ستحتاج إلى عدد أقل من هذه الكائنات لأنها تختلف فقط في الحالة الجوهرية، 
+والتي تحتوي على اختلافات أقل بكثير من الحالة الخارجية.
+
+
+A more elegant solution is to create a separate context class that would store 
+the extrinsic state along with reference to the flyweight object. This approach 
+would require having just a single array in the container class.
+
+Wait a second! Won’t we need to have as many of these contextual objects as we 
+had at the very beginning? Technically, yes. But the thing is, these objects are 
+much smaller than before. The most memory-consuming fields have been moved to just a 
+few flyweight objects. Now, a thousand small contextual objects can reuse a single heavy 
+flyweight object instead of storing a thousand copies of its data.
+الحل الأكثر أناقة هو إنشاء فئة سياق منفصلة من شأنها تخزين الحالة الخارجية مع 
+الإشارة إلى كائن وزن الذبابة. قد يتطلب هذا الأسلوب وجود مصفوفة واحدة فقط في فئة الحاوية.
+
+انتظر لحظة! ألن نحتاج إلى وجود عدد كبير من هذه الكائنات السياقية كما كان لدينا في 
+البداية؟ من الناحية الفنية، نعم. لكن المشكلة هي أن هذه الأجسام أصغر بكثير من ذي قبل. 
+تم نقل الحقول الأكثر استهلاكًا للذاكرة إلى عدد قليل من الكائنات ذات وزن الذبابة. الآن، يمكن 
+لألف كائن سياقي صغير إعادة استخدام كائن واحد ثقيل الوزن بدلاً من تخزين ألف نسخة من بياناته.
+
+
+Flyweight and immutability
+Since the same flyweight object can be used in different contexts, you have to make sure that 
+its state can’t be modified. A flyweight should initialize its state just once, via constructor 
+parameters. It shouldn’t expose any setters or public fields to other objects.
+
+Flyweight factory
+For more convenient access to various flyweights, you can create a factory method 
+that manages a pool of existing flyweight objects. The method accepts the intrinsic 
+state of the desired flyweight from a client, looks for an existing flyweight object 
+matching this state, and returns it if it was found. If not, it creates a new flyweight 
+and adds it to the pool.
+
+There are several options where this method could be placed. The most obvious place is 
+a flyweight container. Alternatively, you could create a new factory class. Or you could 
+make the factory method static and put it inside an actual flyweight class.
+وزن الذبابة والثبات
+نظرًا لأنه يمكن استخدام نفس كائن وزن الذبابة في سياقات مختلفة، فيجب 
+عليك التأكد من عدم إمكانية تعديل حالته. يجب أن يقوم وزن الذبابة بتهيئة حالته 
+مرة واحدة فقط، عبر معلمات المُنشئ. لا ينبغي أن يعرض أي أدوات ضبط أو حقول عامة لكائنات أخرى.
+
+مصنع وزن الذبابة
+للوصول بسهولة أكبر إلى أوزان الذبابة المختلفة، يمكنك إنشاء طريقة مصنع تدير مجموعة 
+من كائنات وزن الذبابة الموجودة. تقبل الطريقة الحالة الجوهرية لوزن الذبابة 
+المطلوب من العميل، وتبحث عن كائن وزن الذبابة الموجود المطابق لهذه الحالة، 
+وتعيده إذا تم العثور عليه. إذا لم يكن الأمر كذلك، 
+فإنه يقوم بإنشاء وزن ذبابة جديد وإضافته إلى حوض السباحة.
+
+هناك العديد من الخيارات حيث يمكن وضع هذه الطريقة. المكان الأكثر وضوحًا 
+هو حاوية وزن الذبابة. وبدلاً من ذلك، يمكنك إنشاء فئة مصنع جديدة. 
+أو يمكنك جعل طريقة المصنع ثابتة ووضعها داخل فئة وزن الذبابة الفعلية.
+
