@@ -1,4 +1,3 @@
-
 //Chain of Responsibility example
 public abstract class Handler {
     private Handler nextHandler;
@@ -65,6 +64,7 @@ public class Client {
         handler1.HandlerRequest("UnknownRequest");
     }
 }
+
 
 
 
