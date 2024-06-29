@@ -1,0 +1,48 @@
+Command Pattern
+the explanation
+Command Pattern is a behavioral design pattern used to transform requests into 
+independent objects that contain all the information necessary to execute them. 
+This mode allows you to cancel, redo, and schedule orders. It also provides a way 
+to delegate operations to the objects that implement them without needing to know 
+the implementation details.
+
+Basic components of Command mode
+Command: Defines an interface containing the execute method to perform the operation.
+ConcreteCommand: Implementes the Command interface and stores the reference to the 
+object executing the command.
+Receiver: The object that performs the actual work associated with the command.
+Invoker: Requests the execution of orders.
+Client: Creates and configures commands and callers.
+الشرح
+نمط الأمر (Command Pattern) هو نمط تصميم سلوكي 
+يستخدم لتحويل الطلبات إلى كائنات مستقلة تحتوي 
+على جميع المعلومات اللازمة لتنفيذها. يتيح هذا 
+النمط إمكانية إلغاء، إعادة، وجدولة الطلبات. كما 
+يوفر طريقة لتفويض العمليات إلى الكائنات التي تقوم 
+بتنفيذها دون الحاجة إلى معرفة تفاصيل التنفيذ.
+
+المكونات الأساسية لنمط Command
+Command (أمر): يعرّف واجهة تحتوي على طريقة execute لتنفيذ العملية.
+ConcreteCommand (الأمر المحدد): ينفذ واجهة Command ويخزن المرجع إلى 
+الكائن الذي ينفذ الطلب.
+Receiver (المستقبل): الكائن الذي يقوم بتنفيذ العمل الفعلي المرتبط بالأمر.
+Invoker (المستدعي): يطلب تنفيذ الأوامر.
+Client (العميل): ينشئ ويهيئ الأوامر والمستدعي
+
++---------+          +---------------+
+|  Client |          |    Receiver   |
++---------+          +---------------+
+     |                      ^
+     |                      |
+     |                      |
+     v                      |
++----------+         +---------------+
+| Command  |-------> | ConcreteCommand|
++----------+         +---------------+
+     ^                      |
+     |                      |
+     |                      |
+     v                      |
++----------+                |
+| Invoker  |----------------+
++----------+
