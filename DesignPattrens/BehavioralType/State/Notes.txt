@@ -1,0 +1,119 @@
+State is a behavioral design pattern that lets an object alter its behavior 
+when its internal state changes. It appears as if the object changed its class.
+الحالة هي نمط تصميم سلوكي يسمح للكائن بتغيير 
+سلوكه عندما تتغير حالته الداخلية. يبدو كما لو أن الكائن قد غيّر فئته.
+
+Problem
+The State pattern is closely related to the concept of a Finite-State Machine
+مشكلة
+يرتبط نمط الحالة ارتباطًا وثيقًا بمفهوم آلة الدولة المحدودة
+
+
+The main idea is that, at any given moment, there’s a finite number of 
+states which a program can be in. Within any unique state, the program 
+behaves differently, and the program can be switched from one state to 
+another instantaneously. However, depending on a current state, the program 
+may or may not switch to certain other states. These switching rules, called 
+transitions, are also finite and predetermined.
+
+You can also apply this approach to objects. Imagine that we have a Document 
+class. A document can be in one of three states: Draft, Moderation and Published. 
+The publish method of the document works a little bit differently in each state:
+
+In Draft, it moves the document to moderation.
+In Moderation, it makes the document public, but only if the current user is an administrator.
+In Published, it doesn’t do anything at all.
+الفكرة الرئيسية هي أنه في أي لحظة، هناك عدد محدود من الحالات التي يمكن أن يكون
+ فيها البرنامج. وفي أي حالة فريدة، يتصرف البرنامج بشكل مختلف، ويمكن
+ تحويل البرنامج من حالة إلى أخرى على الفور. ومع ذلك، اعتمادًا على 
+الحالة الحالية، قد يتحول البرنامج أو لا يتحول إلى حالات أخرى معينة. 
+قواعد التبديل هذه، والتي تسمى التحولات، هي أيضًا محدودة ومحددة مسبقًا.
+
+يمكنك أيضًا تطبيق هذا الأسلوب على الكائنات. تخيل أن لدينا فئة المستند.
+ يمكن أن يكون المستند في إحدى الحالات الثلاث: مسودة، والإشراف، 
+ومنشور. تعمل طريقة نشر المستند بشكل مختلف قليلاً في كل حالة:
+
+في المسودة، يقوم بنقل المستند إلى الاعتدال.
+في الإشراف، يجعل المستند عامًا، ولكن فقط إذا كان المستخدم الحالي مسؤولاً.
+في المنشور، لا يفعل أي شيء على الإطلاق.
+
+State machines are usually implemented with lots of conditional statements
+ (if or switch) that select the appropriate behavior depending on the current
+  state of the object. Usually, this “state” is just a set of values of the object’s
+   fields. Even if you’ve never heard about finite-state machines before, you’ve probably
+    implemented a state at least once. Does the following code structure ring a bell?
+    class Document is
+    field state: string
+    // ...
+    method publish() is
+        switch (state)
+            "draft":
+                state = "moderation"
+                break
+            "moderation":
+                if (currentUser.role == "admin")
+                    state = "published"
+                break
+            "published":
+                // Do nothing.
+                break
+    // ...
+    عادةً ما يتم تنفيذ أجهزة الحالة باستخدام 
+    الكثير من العبارات الشرطية (إذا أو التبديل) التي تحدد السلوك المناسب
+     اعتمادًا على الحالة الحالية للكائن. عادةً ما تكون هذه "الحالة" مجرد
+     مجموعة من قيم حقول الكائن. حتى لو لم تسمع أبدًا عن أجهزة الحالة 
+    المحدودة من قبل، فمن المحتمل أنك قمت بتنفيذ حالة مرة واحدة 
+    على الأقل. هل هيكل التعليمات البرمجية التالي يقرع الجرس؟
+
+Solution
+The State pattern suggests that you create new classes for all possible 
+states of an object and extract all state-specific behaviors into these classes.
+
+Instead of implementing all behaviors on its own, the original object, 
+called context, stores a reference to one of the state objects that represents 
+its current state, and delegates all the state-related work to that object.
+حل
+يقترح نمط الحالة أن تقوم بإنشاء فئات جديدة لجميع الحالات 
+المحتملة للكائن واستخراج جميع السلوكيات الخاصة بالحالة في هذه الفئات.
+
+بدلاً من تنفيذ جميع السلوكيات بمفرده،
+ يقوم الكائن الأصلي، المسمى السياق، بتخزين مرجع إلى أحد كائنات الحالة 
+التي تمثل حالته الحالية، ويفوض كل العمل المتعلق بالحالة إلى هذا الكائن.
+
+To transition the context into another state, replace the active state object with 
+another object that represents that new state. This is possible only if all state 
+classes follow the same interface and the context itself works with these objects 
+through that interface.
+
+IMPORTANT:
+This structure may look similar to the Strategy pattern, but there’s one key 
+difference. In the State pattern, the particular states may be aware of each 
+other and initiate transitions from one state to another, whereas strategies 
+almost never know about each other.
+لنقل السياق إلى حالة أخرى، استبدل كائن الحالة النشطة بكائن آخر يمثل تلك الحالة الجديدة. 
+يكون هذا ممكنًا فقط إذا كانت جميع فئات الحالة 
+تتبع نفس الواجهة وكان السياق نفسه يعمل مع هذه الكائنات من خلال تلك الواجهة.
+
+هام:
+قد يبدو هذا الهيكل مشابهًا لنمط الإستراتيجية، 
+ولكن هناك اختلاف رئيسي واحد. في نمط الدولة، قد تكون الدول 
+المعينة على دراية ببعضها البعض وتبدأ 
+التحولات من دولة إلى أخرى، في حين أن الاستراتيجيات لا تعرف أبدًا عن بعضها البعض.
+
+Example:
+he buttons and switches in your smartphone behave differently depending
+on the current state of the device:
+
+-When the phone is unlocked, pressing buttons leads to executing various functions.
+-When the phone is locked, pressing any button leads to the unlock screen.
+-When the phone’s charge is low, pressing any button shows the charging screen.
+تعمل الأزرار والمفاتيح الموجودة في هاتفك الذكي 
+بشكل مختلف اعتمادًا على الحالة الحالية للجهاز:
+
+عند فتح قفل الهاتف، يؤدي الضغط على الأزرار إلى تنفيذ وظائف مختلفة.
+عندما يكون الهاتف مقفلاً، يؤدي الضغط على أي زر إلى فتح الشاشة.
+عندما يكون شحن الهاتف منخفضًا، يؤدي الضغط على أي زر إلى ظهور شاشة الشحن.
+
+
+
+
