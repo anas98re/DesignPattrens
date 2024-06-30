@@ -1,0 +1,78 @@
+Template Method is a behavioral pattern used to define the "structure" of an 
+algorithm in an abstract class while deferring execution of some steps to 
+subclasses. This pattern allows subclasses to redefine certain steps of the 
+algorithm without changing its overall structure.
+نمط التصميم Template Method هو نمط سلوكي يُستخدم
+ لتحديد "هيكل" الخوارزمية في فئة أساسية (abstract class) مع تأجيل تنفيذ بعض الخطوات إلى 
+ الفئات الفرعية (subclasses). يتيح هذا النمط للفئات الفرعية إعادة تعريف خطوات 
+ معينة من الخوارزمية دون تغيير هيكلها العام.
+
+Template Method is a behavioral design pattern that defines the skeleton of an 
+algorithm in the superclass but lets subclasses override specific steps of the algorithm without 
+changing its structure.
+أسلوب القالب هو نمط تصميم سلوكي يحدد الهيكل العظمي للخوارزمية في الفئة 
+الفائقة ولكنه يسمح للفئات الفرعية بتجاوز خطوات محددة للخوارزمية دون تغيير بنيتها.
+
+Problem
+Imagine that you’re creating a data mining application that analyzes corporate 
+documents. Users feed the app documents in various formats (PDF, DOC, CSV), and it 
+tries to extract meaningful data from these docs in a uniform format.
+The first version of the app could work only with DOC files. In the following version, 
+it was able to support CSV files. A month later, you “taught” it to extract data from PDF files.
+مشكلة
+تخيل أنك تقوم بإنشاء تطبيق لاستخراج 
+البيانات يقوم بتحليل 
+مستندات الشركة. يقوم المستخدمون بتغذية مستندات التطبيق بتنسيقات مختلفة (PDF، DOC، CSV)
+، ويحاول استخراج بيانات 
+ذات معنى من هذه 
+المستندات بتنسيق موحد.
+يمكن أن يعمل الإصدار الأول من التطبيق فقط مع ملفات DOC. في الإصدار التالي، كان قادرًا 
+على دعم ملفات CSV. وبعد شهر، "علمته" كيفية استخراج البيانات من ملفات PDF.
+
+
+At some point, you noticed that all three classes have a lot of similar code. While the 
+code for dealing with various data formats was entirely different in all classes, the 
+code for data processing and analysis is almost identical. Wouldn’t it be great to get 
+rid of the code duplication, leaving the algorithm structure intact?
+
+There was another problem related to client code that used these classes. It had lots 
+of conditionals that picked a proper course of action depending on the class of the 
+processing object. If all three processing classes had a common interface or a base 
+class, you’d be able to eliminate the conditionals in client code and use polymorphism 
+when calling methods on a processing object.
+في مرحلة ما، لاحظت أن الفئات الثلاثة تحتوي على الكثير من التعليمات البرمجية المتشابهة.
+ في حين أن كود التعامل مع تنسيقات البيانات المختلفة كان مختلفًا تمامًا في 
+جميع الفئات، فإن كود معالجة البيانات وتحليلها متطابق تقريبًا. ألن يكون من 
+الرائع التخلص من تكرار التعليمات البرمجية، مع ترك بنية الخوارزمية سليمة؟
+
+كانت هناك مشكلة أخرى تتعلق بكود العميل الذي يستخدم هذه الفئات. كان 
+يحتوي على الكثير من الشروط الشرطية التي اختارت مسارًا مناسبًا للعمل 
+اعتمادًا على فئة كائن المعالجة. إذا كانت فئات المعالجة الثلاثة جميعها 
+تحتوي على واجهة مشتركة أو فئة أساسية، فستتمكن من إزالة الشروط الشرطية 
+في كود العميل واستخدام تعدد الأشكال عند استدعاء الأساليب على كائن معالجة.
+
+
+Solution
+The Template Method pattern suggests that you break down an algorithm into 
+a series of steps, turn these steps into methods, and put a series of calls 
+to these methods inside a single template method. The steps may either be abstract, 
+or have some default implementation. To use the algorithm, the client is supposed to 
+provide its own subclass, implement all abstract steps, and override some of the optional 
+ones if needed (but not the template method itself).
+
+Let’s see how this will play out in our data mining app. We can create a base class 
+for all three parsing algorithms. This class defines a template method consisting of a 
+series of calls to various document-processing steps.
+
+حل
+يقترح نمط أسلوب القالب أن تقوم بتقسيم الخوارزمية إلى سلسلة من الخطوات، وتحويل هذه الخطوات إلى أساليب، 
+ووضع سلسلة من الاستدعاءات لهذه الأساليب داخل أسلوب قالب واحد. قد تكون الخطوات 
+مجردة، أو قد يكون لها بعض التنفيذ الافتراضي. لاستخدام الخوارزمية، من المفترض أن يوفر 
+العميل فئته الفرعية الخاصة، وينفذ 
+جميع الخطوات المجردة، ويتجاوز بعض الخطوات الاختيارية إذا لزم الأمر (ولكن ليس طريقة القالب نفسها).
+
+دعونا نرى كيف سيتم تنفيذ ذلك في تطبيق التنقيب عن البيانات الخاص بنا. يمكننا إنشاء 
+فئة أساسية لجميع خوارزميات التحليل الثلاثة. تحدد هذه الفئة طريقة 
+قالب تتكون من سلسلة من الاستدعاءات لخطوات معالجة المستندات المختلفة.
+
+
