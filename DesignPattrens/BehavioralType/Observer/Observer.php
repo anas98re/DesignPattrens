@@ -274,3 +274,4 @@ $repository->deleteUser($user);
 //                                              | - attributes: array|
 //                                              | + update(data)    |
 //                                              +------------------+
+
