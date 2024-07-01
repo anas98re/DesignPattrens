@@ -1,0 +1,110 @@
+Mediator is a behavioral design pattern that lets you reduce chaotic dependencies between 
+objects. The pattern restricts direct communications between the objects and forces them to 
+collaborate only via a mediator object.
+الوسيط هو نمط تصميم سلوكي يتيح لك تقليل التبعيات الفوضوية بين الكائنات. 
+يقيد النمط الاتصالات المباشرة بين الكائنات ويجبرها على التعاون فقط عبر كائن وسيط.
+
+Problem
+Say you have a dialog for creating and editing customer profiles. It consists 
+of various form controls such as text fields, checkboxes, buttons, etc.
+مشكلة
+لنفترض أن لديك مربع حوار لإنشاء ملفات تعريف العملاء وتحريرها. 
+ويتكون من عناصر تحكم متنوعة في النماذج مثل حقول النص ومربعات الاختيار والأزرار وما إلى ذلك.
+
+Some of the form elements may interact with others. For instance, selecting the 
+“I have a dog” checkbox may reveal a hidden text field for entering the dog’s name. 
+Another example is the submit button that has to validate values of all fields before 
+saving the data.
+قد تتفاعل بعض عناصر النموذج مع الآخرين. على سبيل المثال، قد يؤدي تحديد خانة 
+الاختيار "لدي كلب" إلى الكشف عن حقل نص مخفي لإدخال 
+اسم الكلب. مثال آخر هو زر الإرسال الذي يجب أن يتحقق من صحة قيم جميع الحقول قبل حفظ البيانات.
+
+By having this logic implemented directly inside the code of the form elements you 
+make these elements’ classes much harder to reuse in other forms of the app. 
+For example, you won’t be able to use that checkbox class inside another form, 
+because it’s coupled to the dog’s text field. You can use either all the classes 
+involved in rendering the profile form, or none at all.
+من خلال تنفيذ هذا المنطق مباشرة داخل التعليمات البرمجية لعناصر النموذج، 
+فإنك تجعل إعادة استخدام فئات هذه العناصر أكثر صعوبة في أشكال أخرى من التطبيق. على سبيل 
+المثال، لن تتمكن من استخدام فئة خانة الاختيار هذه داخل نموذج آخر، لأنها مقترنة بحقل النص الخاص بالكلب. 
+يمكنك استخدام إما جميع الفئات المشاركة في عرض نموذج الملف الشخصي، أو عدم استخدام أي منها على الإطلاق.
+
+Solution
+The Mediator pattern suggests that you should cease all direct communication between the 
+components which you want to make independent of each other. Instead, these components 
+must collaborate indirectly, by calling a special mediator object that redirects the calls 
+to appropriate components. As a result, the components depend only on a single mediator 
+class instead of being coupled to dozens of their colleagues.
+
+In our example with the profile editing form, the dialog class itself may act as 
+the mediator. Most likely, the dialog class is already aware of all of its sub-elements, 
+so you won’t even need to introduce new dependencies into this class.
+حل
+يقترح نمط الوسيط أنه يجب عليك إيقاف كافة الاتصالات 
+المباشرة بين المكونات التي تريد جعلها مستقلة عن بعضها البعض. بدلاً من ذلك، 
+يجب أن تتعاون هذه المكونات بشكل غير مباشر، عن طريق استدعاء كائن وسيط 
+خاص يعيد توجيه الاستدعاءات إلى المكونات المناسبة. ونتيجة لذلك، تعتمد 
+المكونات فقط على فئة وسيطة واحدة بدلاً من اقترانها بالعشرات من زملائها.
+
+في مثالنا الخاص بنموذج تحرير ملف التعريف، 
+قد تعمل فئة الحوار نفسها كوسيط. على الأرجح، فئة الحوار على دراية بجميع 
+عناصرها الفرعية، لذلك لن تحتاج حتى إلى إدخال تبعيات جديدة في هذه الفئة.
+
+The most significant change happens to the actual form elements. Let’s consider the 
+submit button. Previously, each time a user clicked the button, it had to validate 
+the values of all individual form elements. Now its single job is to notify the dialog 
+about the click. Upon receiving this notification, the dialog itself performs the 
+validations or passes the task to the individual elements. Thus, instead of being tied 
+to a dozen form elements, the button is only dependent on the dialog class.
+
+You can go further and make the dependency even looser by extracting the common 
+interface for all types of dialogs. The interface would declare the notification 
+method which all form elements can use to notify the dialog about events happening 
+to those elements. Thus, our submit button should now be able to work with any dialog 
+that implements that interface.
+
+This way, the Mediator pattern lets you encapsulate a complex web of relations between 
+various objects inside a single mediator object. The fewer dependencies a class has, the 
+easier it becomes to modify, extend or reuse that class.
+التغيير الأكثر أهمية يحدث لعناصر النموذج الفعلية. دعونا 
+ننظر في زر الإرسال. في السابق، في كل مرة ينقر فيها المستخدم على الزر، كان عليه 
+التحقق من صحة قيم جميع عناصر النموذج الفردية. الآن وظيفتها الوحيدة هي إخطار 
+مربع الحوار بالنقرة. عند تلقي هذا الإشعار، يقوم مربع الحوار نفسه بإجراء 
+عمليات التحقق من الصحة أو تمرير المهمة إلى العناصر الفردية. وبالتالي،
+ بدلاً من ربطه بعشرات عناصر النموذج، يعتمد الزر فقط على فئة الحوار.
+
+يمكنك المضي قدمًا وجعل التبعية 
+أكثر مرونة عن طريق استخراج الواجهة المشتركة لجميع أنواع مربعات الحوار. ستعلن 
+الواجهة عن طريقة الإعلام التي يمكن لجميع عناصر النموذج استخدامها لإخطار مربع 
+الحوار حول الأحداث التي تحدث لتلك العناصر. وبالتالي، ينبغي الآن أن يكون زر 
+الإرسال الخاص بنا قادرًا على العمل مع أي مربع حوار يقوم بتنفيذ تلك الواجهة.
+
+بهذه الطريقة، يتيح لك نمط الوسيط تغليف شبكة معقدة 
+من العلاقات بين الكائنات المختلفة داخل كائن وسيط واحد. كلما قل عدد التبعيات 
+الخاصة بالفئة، أصبح من الأسهل تعديل تلك الفئة أو توسيعها أو إعادة استخدامها.
+
+EX:
+Pilots of aircraft that approach or depart the airport control area don’t communicate 
+directly with each other. Instead, they speak to an air traffic controller, 
+who sits in a tall tower somewhere near the airstrip. Without the air traffic 
+controller, pilots would need to be aware of every plane in the vicinity of 
+the airport, discussing landing priorities with a committee of dozens of other 
+pilots. That would probably skyrocket the airplane crash statistics.
+
+The tower doesn’t need to control the whole flight. It exists only to enforce 
+constraints in the terminal area because the number of involved actors there 
+might be overwhelming to a pilot.
+لا يتواصل طيارو الطائرات التي تقترب من منطقة مراقبة المطار 
+أو تغادرها بشكل مباشر مع بعضهم البعض. وبدلاً من ذلك، تحدثوا إلى مراقب الحركة الجوية، 
+الذي يجلس في برج طويل في مكان ما بالقرب من مهبط الطائرات. وبدون مراقب الحركة الجوية، 
+سيحتاج الطيارون إلى أن يكونوا على دراية بكل طائرة في محيط المطار، ومناقشة أولويات الهبوط مع لجنة 
+مكونة من عشرات الطيارين الآخرين. من المحتمل أن يؤدي ذلك إلى ارتفاع كبير في إحصائيات حوادث الطائرات.
+
+لا يحتاج البرج إلى التحكم في الرحلة بأكملها. إنه موجود فقط لفرض القيود 
+في منطقة المحطة لأن عدد الجهات الفاعلة المشاركة هناك قد يكون هائلاً بالنسبة للطيار.
+
+
+
+
+
+
