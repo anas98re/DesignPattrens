@@ -1,0 +1,121 @@
+Iterator is a behavioral design pattern that lets you traverse elements of a collection 
+without exposing its underlying representation (list, stack, tree, etc.).
+
+Problem
+Collections are one of the most used data types in programming. Nonetheless, a collection 
+is just a container for a group of objects.
+
+Most collections store their elements in simple lists. However, some of them are based on 
+stacks, trees, graphs and other complex data structures.
+
+But no matter how a collection is structured, it must provide some way of accessing its 
+elements so that other code can use these elements. There should be a way to go through 
+each element of the collection without accessing the same elements over and over.
+
+This may sound like an easy job if you have a collection based on a list. You just loop 
+over all of the elements. But how do you sequentially traverse elements of a complex data 
+structure, such as a tree? For example, one day you might be just fine with depth-first 
+traversal of a tree. Yet the next day you might require breadth-first traversal. And the 
+next week, you might need something else, like random access to the tree elements.
+Iterator هو نمط تصميم سلوكي يتيح لك اجتياز عناصر المجموعة 
+دون الكشف عن تمثيلها الأساسي (القائمة، المكدس، الشجرة، وما إلى ذلك).
+
+مشكلة
+تعد المجموعات أحد أكثر أنواع البيانات 
+استخدامًا في البرمجة. ومع ذلك، المجموعة هي مجرد حاوية لمجموعة من الكائنات.
+
+تقوم معظم المجموعات بتخزين عناصرها في قوائم بسيطة. ومع ذلك، يعتمد 
+بعضها على الأكوام والأشجار والرسوم البيانية وهياكل البيانات المعقدة الأخرى.
+
+ولكن بغض النظر عن 
+كيفية تنظيم المجموعة، يجب أن توفر طريقة ما للوصول إلى عناصرها حتى تتمكن 
+التعليمات البرمجية الأخرى من استخدام هذه العناصر. يجب أن تكون هناك طريقة 
+لتصفح كل عنصر من عناصر المجموعة دون الوصول إلى نفس العناصر مرارًا وتكرارًا.
+
+قد يبدو هذا بمثابة مهمة سهلة إذا كان لديك مجموعة تعتمد على القائمة. 
+أنت فقط تحلق فوق كل العناصر. ولكن كيف يمكنك اجتياز عناصر بنية بيانات معقدة 
+بشكل تسلسلي، مثل الشجرة؟ 
+على سبيل المثال، قد تكون في يوم من الأيام على ما يرام مع اجتياز العمق 
+الأول للشجرة. ومع ذلك، في اليوم التالي قد تحتاج إلى اجتياز العرض أولاً. وفي 
+الأسبوع المقبل، قد تحتاج إلى شيء آخر، مثل الوصول العشوائي إلى عناصر الشجرة.
+
+Adding more and more traversal algorithms to the collection gradually blurs its 
+primary responsibility, which is efficient data storage. Additionally, some algorithms 
+might be tailored for a specific application, so including them into a generic collection 
+class would be weird.
+
+On the other hand, the client code that’s supposed to work with various collections 
+may not even care how they store their elements. However, since collections all provide 
+different ways of accessing their elements, you have no option other than to couple your 
+code to the specific collection classes.
+تؤدي إضافة المزيد والمزيد من خوارزميات الاجتياز إلى المجموعة إلى طمس 
+مسؤوليتها الأساسية تدريجيًا، وهي تخزين البيانات بكفاءة. بالإضافة إلى ذلك، 
+قد يتم تصميم بعض الخوارزميات لتطبيق معين، لذا فإن تضمينها في فئة تجميع عامة سيكون أمرًا غريبًا.
+
+من ناحية أخرى، فإن كود العميل الذي من المفترض أن يعمل مع مجموعات مختلفة قد لا يهتم 
+حتى بكيفية تخزين عناصره. ومع ذلك، نظرًا لأن جميع المجموعات توفر طرقًا مختلفة 
+للوصول إلى عناصرها، فليس لديك خيار سوى ربط التعليمات البرمجية الخاصة بك بفئات المجموعة المحددة.
+
+Solution
+The main idea of the Iterator pattern is to extract the traversal behavior of a 
+collection into a separate object called an iterator.
+حل
+الفكرة الرئيسية لنمط التكرار هي استخراج سلوك اجتياز المجموعة إلى كائن منفصل يسمى المكرر.
+
+
+In addition to implementing the algorithm itself, an iterator object encapsulates all of 
+the traversal details, such as the current position and how many elements are left till 
+the end. Because of this, several iterators can go through the same collection at the same 
+time, independently of each other.
+
+Usually, iterators provide one primary method for fetching elements of the collection. 
+The client can keep running this method until it doesn’t return anything, which means 
+that the iterator has traversed all of the elements.
+
+All iterators must implement the same interface. This makes the client code compatible 
+with any collection type or any traversal algorithm as long as there’s a proper iterator. 
+If you need a special way to traverse a collection, you just create a new iterator class, 
+without having to change the collection or the client.
+بالإضافة إلى تنفيذ الخوارزمية نفسها، يقوم كائن التكرار بتغليف جميع تفاصيل 
+الاجتياز، مثل الموقع الحالي وعدد العناصر المتبقية حتى النهاية. ولهذا السبب، يمكن
+ للعديد من المكررات الاطلاع على نفس المجموعة في نفس الوقت، بشكل مستقل عن بعضها البعض.
+
+عادة، توفر التكرارات طريقة أساسية واحدة لجلب عناصر المجموعة. يمكن للعميل الاستمرار 
+في تشغيل هذه الطريقة حتى لا يُرجع أي شيء، مما يعني أن المُكرِّر قد اجتاز جميع العناصر.
+
+يجب على كافة التكرارات 
+تنفيذ نفس الواجهة. وهذا يجعل كود العميل متوافقًا مع أي نوع مجموعة أو أي خوارزمية 
+اجتياز طالما أن هناك مكررًا مناسبًا. إذا كنت بحاجة إلى طريقة خاصة لاجتياز مجموعة، 
+فما عليك سوى إنشاء فئة مكررة جديدة، دون الحاجة إلى تغيير المجموعة أو العميل.
+
+
+EX:
+You plan to visit Rome for a few days and visit all of its main sights and attractions. 
+But once there, you could waste a lot of time walking in circles, unable to find even the 
+Colosseum.
+
+On the other hand, you could buy a virtual guide app for your smartphone and use it for 
+navigation. It’s smart and inexpensive, and you could be staying at some interesting places 
+for as long as you want.
+
+A third alternative is that you could spend some of the trip’s budget and hire a local 
+guide who knows the city like the back of his hand. The guide would be able to tailor the 
+tour to your likings, show you every attraction and tell a lot of exciting stories. That’ll 
+be even more fun; but, alas, more expensive, too.
+
+All of these options—the random directions born in your head, the smartphone navigator 
+or the human guide—act as iterators over the vast collection of sights and attractions 
+located in Rome.
+تخطط لزيارة روما لبضعة أيام وزيارة جميع المعالم السياحية الرئيسية فيها. 
+ولكن بمجرد وصولك إلى هناك، قد تضيع الكثير 
+من الوقت في المشي في دوائر، غير قادر على العثور حتى على الكولوسيوم.
+
+من ناحية أخرى، يمكنك شراء تطبيق دليل افتراضي لهاتفك الذكي واستخدامه للتنقل. 
+إنها طريقة ذكية وغير مكلفة، ويمكنك الإقامة في بعض الأماكن المثيرة للاهتمام للمدة التي تريدها.
+
+البديل الثالث هو أنه يمكنك إنفاق جزء من ميزانية الرحلة والاستعانة بمرشد محلي 
+يعرف المدينة عن ظهر قلب. سيكون الدليل قادرًا على تصميم الجولة حسب رغبتك، وإظهار كل المعالم 
+السياحية لك، وسرد الكثير من القصص المثيرة. سيكون ذلك أكثر متعة. ولكن، للأسف، أكثر تكلفة أيضا.
+
+كل هذه الخيارات - الاتجاهات العشوائية التي تتولد في رأسك، أو متصفح الهاتف الذكي أو 
+الدليل البشري - تعمل كمكررات لمجموعة واسعة من المعالم السياحية ومناطق الجذب الموجودة في روما.
