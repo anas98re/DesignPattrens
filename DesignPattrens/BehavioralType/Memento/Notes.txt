@@ -1,0 +1,33 @@
+Memento Pattern is a Behavioral Design Pattern that provides a mechanism for saving and 
+restoring the previous state of an object without revealing the complex implementation .
+details of that object. This pattern is typically used to implement undo operations in applications.
+Memento Pattern هو نمط تصميم سلوكي (Behavioral Design Pattern) يوفر آلية لحفظ واستعادة 
+الحالة السابقة لكائن ما
+ دون الكشف عن تفاصيل 
+التنفيذ المعقدة لهذا 
+الكائن. يُستخدم هذا النمط 
+عادةً لتنفيذ عمليات التراجع (Undo) في التطبيقات.
+
+Memento Pattern Ingredients:
+1-Memento: An object that stores the internal state of the object whose state is to be saved.
+2-Originator: The object whose state you wish to save. It creates a Memento object that contains 
+its current state and can restore its state from that object.
+3-Caretaker: A being responsible for saving and retrieving Memento, 
+but does not recognize or handle the details of the saved state.
+مكونات Memento Pattern:
+1-Memento: كائن يخزن الحالة الداخلية للكائن المراد حفظ حالته.
+2-Originator: الكائن الذي يرغب في حفظ حالته. يقوم بإنشاء كائن 
+Memento يحتوي على حالته الحالية ويمكنه استعادة
+ حالته من هذا الكائن.
+3-Caretaker: كائن مسؤول عن حفظ واسترجاع Memento، ولكنه لا يتعرف أو يتعامل مع تفاصيل الحالة المحفوظة.
+
+Why use Memento Pattern?
+1-Provides the ability to undo: This mode allows undo and redo operations to be performed easily.
+2-Object Protection: Maintains the integrity of objects by not exposing their internal 
+implementation details.
+3-Abstraction: Separates the logic of saving state from the logic of restoring it, 
+making the code easier to maintain
+لماذا نستخدم Memento Pattern؟
+توفير القدرة على التراجع: يسمح هذا النمط بتنفيذ عمليات التراجع (Undo) وإعادة التراجع (Redo) بسهولة.
+حماية الكائنات: يحافظ على سلامة الكائنات عن طريق عدم كشف تفاصيل تنفيذها الداخلية.
+التجريد: يفصل بين منطق حفظ الحالة ومنطق استعادتها، مما يسهل صيانة الكود
