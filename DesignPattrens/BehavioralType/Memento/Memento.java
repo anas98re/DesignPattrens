@@ -27,7 +27,7 @@ public interface Caretaker {
 public class TextState implements Memento {
     private final String text;
 
-    public TextState(Memento memento) {
+    public TextState(String text) {
         this.text = text;
     }
 
