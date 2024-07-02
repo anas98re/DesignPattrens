@@ -1,45 +1,80 @@
-interface Visitor{
-    void visitProject(Project project);
-    void visitTask(Task task);
-    void accept(Visitor visitor);
+interface Visitor {
+    void VisitProject(Project project);
+    void VisitTask(Task task);
+    void VisitPhase(Phase phase);
 }
 
-public class Project implements Visitor{
+public class Project implements Visitor {
     private Date startDate;
     private Date endDate;
-    private List<Task> tasks = new ArrayList<>();
+    private List<Phase> phases = new ArrayList<>();
 
     public Project(Date startDate, Date endDate){
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Date getStartDate() {
+    public void getPhase(Phase phase){
+        return phases;
+    }
+
+    public void getStartDate(){
         return startDate;
     }
 
-    public Date getEndDate() {
+    public void getEndDate(){
         return endDate;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public void addPhase(Phase phase){
+        phases.add(phase);
+    }
+
+    @Override
+    public void accept(Visitor visitor){
+        visitor.visitProject(this);
+        for (Phase phase : phases){
+            phase.accept(visitor);
+        }
+    }
+}
+
+public class Phase implements Visitor {
+    private Date startDate;
+    private Date endDate;
+    private List<Task> tasks = new ArrayList<Task>();
+
+    public void Phase(Date startDate, Date endDate){
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public void getStartDate(){
+        return startDate;
+    }
+
+    public void getEndDate(){
+        return endDate;
     }
 
     public void addTask(Task task){
         tasks.add(task);
     }
 
+    public void getTasks(){
+        return tasks;
+    }
+
     @Override
-    public void accept(Visitor visitor) {
-        visitor.visitProject(this);
+    public void accept(Visitor visitor){
+        visitor.visitPhase(this);
         for(Task task : tasks){
             task.accept(visitor);
         }
     }
 }
 
-public class Task implements Visitor {
+public class Task implements Visitor{
     private Date startDate;
     private Date endDate;
     private int effort;
@@ -63,12 +98,12 @@ public class Task implements Visitor {
     }
 
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(Visitor visitor){
         visitor.visitTask(this);
     }
 }
 
-public class StartEndTimeVisitor implements Visitor{
+public class StartEndTimeVisitor implements Visitor {
     private Date earliestStart;
     private Date latestEnd;
 
@@ -81,8 +116,21 @@ public class StartEndTimeVisitor implements Visitor{
     }
 
     @Override
-    public void visitProject(Project project){
-        for(Task task : project.getTasks()){
+    public void VisitProject(Project project){
+        for(Phase phase : Project.getPhases()){
+            if(earliestStart == null || phase.getStartDate.before(earliestStart)) {
+                earliestStart = phase.getStartDate;
+            } 
+            if(latestEnd == null || phase.getEndDate.after(latestEnd)){
+                latestEnd = phase.getEndDate;
+            }
+        }
+    }
+
+
+    @Override
+    public void VisitPhase(Phase phase) {
+        for(Task task : phase.getTasks()){
             if(earliestStart == null || task.getStartDate.before(earliestStart)){
                 earliestStart = task.getStartDate;
             } 
@@ -90,31 +138,42 @@ public class StartEndTimeVisitor implements Visitor{
                 latestEnd = task.getEndDate;
             }
         }
-    }
+    } 
 
     @Override
     public void visitTask(Task task) {
         // No specific task calculation required for this visitor
     } 
+
 }
 
-public class TotalEffortVisitor implements Visitor{
-    private int TotalEffort = 0;
+public class TotalEffortVisitor implements Visitor {
+    private  int totalEffort = 0;
 
-    public int getTotalEffort(){
-        return TotalEffort;
+    public int getTotalEffort() {
+        return totalEffort;
     }
 
-    @Override
-    public void visitProject(Project project) {
-        for(Task task : project.getTasks){
-            TotalEffort += task.getTotalEffort();
-        }
-    }
 
     @Override
     public void visitTask(Task task) {
-        TotalEffort += task.getTotalEffort();
+        return totalEffort += task.getTotalEffort();
+    }
+
+    @Override
+    public void visitPhase(Phase phase) {
+        for (Task task : phase.getTasks()) {
+            TotalEffort += task.getTotalEffort();
+        }
+        return totalEffort;
+    }
+
+    @Override
+    public void VisitProject(Project project) {
+        for(Phase phase : project.getPhases()){
+            TotalEffort += phase.getTotalEffort();
+        }
+        return totalEffort;
     }
 }
 
@@ -145,11 +204,12 @@ public class Demo {
 }
 
 
-            //                            +----------------------+
+   //                                +----------------------+
             //                            |      Visitor         |
             //                            +----------------------+
             //                            | + visitProject()     |
-            //                            | + visitTask()        |
+            //                            | + visitTask()  
+            //                             |+ visitPhase() +accept(visitor)
             //                            +----------+-----------+
             //                                       |
             //               +-----------------------+------------------------+
@@ -173,11 +233,10 @@ public class Demo {
             //                                       +----------------+----------------+        +----------------+----------------+
             //                                       |                                 |        |                                 |
             //                            +----------+----------+            +---------+----------+            +----------+----------+
-            //                            |     Project         |            |         Task      |            |         Task         |
+            //                            |     Project         |            |         Phase      |            |         Task         |
             //                            +---------------------+            +-------------------+            +---------------------+
             //                            | - startDate: Date   |            | - startDate: Date |            | - startDate: Date   |
             //                            | - endDate: Date     |            | - endDate: Date   |            | - endDate: Date     |
             //                            | - tasks: List<Task> |            | - effort: int     |            | - effort: int       |
             //                            +---------------------+            +-------------------+            +---------------------+
-
 

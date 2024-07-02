@@ -22,7 +22,7 @@ public class FileDataSource implements DataSource {
         this.name = name;
     }
 
-     @Override
+    @Override
     public void writeData(String data) {
         File file = new File(name);
         try (OutputStream fos = new FileOutputStream(file)) {

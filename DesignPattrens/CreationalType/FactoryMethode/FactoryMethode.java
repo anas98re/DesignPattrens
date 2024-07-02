@@ -41,7 +41,7 @@ class SpreadsheetDocument implements Document {
 }
 
 //Application Abstract class
-abstract class Application {
+abstract class ApplicationFactory {
     abstract Document createDocument();
 
     void newDocument(){
@@ -51,7 +51,7 @@ abstract class Application {
 }
 
 //TextApplication class
-class TextApplication extends Application {
+class TextApplicationFactroy extends ApplicationFactory {
     @Override
     Document createDocument(){
         return new TextDocument();
@@ -59,7 +59,7 @@ class TextApplication extends Application {
 }
 
 //SpreadsheetApplication class
-class SpreadsheetApplication extends Application{
+class SpreadsheetApplicationFactory extends ApplicationFactory{
     @Override
     Document createDocument(){
         return new SpreadsheetDocument();
@@ -69,10 +69,10 @@ class SpreadsheetApplication extends Application{
 //Main class
 public class Main{
     public static void main(String[] args){
-        Application App = new TextApplication();
+        ApplicationFactory App = new TextApplicationFactroy();
         app.newDocument();
 
-        Application AppSpreadsheet = new SpreadsheetApplication();
+        ApplicationFactory AppSpreadsheet = new SpreadsheetApplicationFactory();
         AppSpreadsheet.newDocument();
     }
 }
