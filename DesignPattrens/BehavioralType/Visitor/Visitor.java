@@ -12,7 +12,7 @@
 // move and draw the shape, in addition to the accept function that accepts 
 // a visitor of type Visitor.
 public interface Shape {
-    void move(int x, int y);
+    void move(int x, int y);    
     void drow();
     String accept(Visitor visitor);
 }
@@ -28,7 +28,7 @@ public class Dot implements Shape {
     public Dot(int x, int y, int id) {
         this.x = x;
         this.y = y;
-        this.id = id;
+        this.id = id;`
     }
 
     @Override

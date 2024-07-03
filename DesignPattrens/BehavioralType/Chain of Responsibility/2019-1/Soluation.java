@@ -72,7 +72,7 @@ public abstract class Role {
         this.next = next;
     }
 
-    public abstract String ghandle(Document doc);
+    public abstract String handle(Document doc);
 }
 
 public class Employee extends Role {
